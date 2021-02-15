@@ -1,0 +1,35 @@
+body {
+    background-color: #111218;
+    font-family: monospace;
+    font-size: x-large;
+    color: #ffffffe6;
+    margin: 40px;
+}
+
+h1 {
+    font-size: xx-large;
+}
+
+a {
+    margin: 0;
+    color: #7289da;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.25s;
+}
+
+a:hover, a:focus {
+    color: #ffffffe6;
+}
+
+b {
+    font-weight: normal;
+    font-style: normal;
+    color: #2e3242;
+    margin: 0;
+}
+
+i {
+    font-size: 5px;
+    opacity: 0;
+}
