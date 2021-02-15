@@ -3,7 +3,7 @@ const questions = [
   { prompt: "Are you using Discord's desktop app (not the website)?", solution: "Please switch to the desktop app, which you can download <a href='https://discord.com/download'>here</a>." },
   { prompt: "Are you using a modified version of Discord's desktop app (like BetterDiscord)?", solution: "Please switch to the official desktop app, which you can download <a href='https://discord.com/download'>here</a>.", swap: true },
   { prompt: "Have you enabled your Game Activity settings in Discord settings?", solution: "Please enable the option in Discord settings under Game Activity." },
-  { prompt: "When you open the extension in your browser, do you see a yellow (!)?", solution: "Make sure the PreMiD application is running. If this doesn't work, try restarting your browser. Also make sure you haven't run Discord with administrator rights.\n\nIf these steps don't work, try reinstalling PreMiD <a href='https://premid.app/downloads'>here</a>.", swap: true }
+  { prompt: "When you open the extension in your browser, do you see a yellow (!)?", solution: "Make sure the PreMiD application is running. If this doesn't work, try restarting your browser. Also make sure you haven't run Discord with administrator rights.<br>If these steps don't work, try reinstalling PreMiD <a href='https://premid.app/downloads'>here</a>.", swap: true }
 ]
 let question = -1
 let ts = document.getElementById("ts")
