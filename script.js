@@ -27,6 +27,11 @@ function cont(a, b) {
   } else {
     ts.innerHTML += `<br>${a}`
   }
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    left: 0,
+    behavior: 'smooth'
+  })
 }
 
 function ask() {
@@ -46,5 +51,9 @@ function ask() {
   } else {
     div.innerHTML = `<a onclick='cont("next", this)'>Yes</a> <a onclick='cont("s", this)'>No</a>`
   }
-  window.scrollTo(0, document.body.scrollHeight)
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    left: 0,
+    behavior: 'smooth'
+  })
 }
