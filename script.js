@@ -1,9 +1,10 @@
 const questions = [
-  { p: "Have you installed the PreMiD extension and app?", s: "Please install the PreMiD extension and app from <a href='https://premid.app/downloads'>our site</a>." },
+  { p: "Have you installed the PreMiD extension and application?", s: "Please install the PreMiD extension and app from <a href='https://premid.app/downloads'>our site</a>." },
   { p: "Are you using Discord's desktop app (not the website)?", s: "Please switch to the desktop app, which you can download <a href='https://discord.com/download'>here</a>." },
   { p: "Are you using a modified version of Discord's desktop app (like BetterDiscord)?", s: "Please switch to the official desktop app, which you can download <a href='https://discord.com/download'>here</a>.", b: [{ t: "Yes", a: "s" }, { t: "No" }] },
   { p: "Have you enabled your Game Activity settings in Discord settings?", s: "Please enable the option in Discord settings under Game Activity." },
   { p: "When you open the extension in your browser, do you see a yellow (!)?", s: "Make sure the PreMiD application is running. If this doesn't work, try restarting your browser. Also make sure you haven't run Discord with administrator rights.<br>If these steps don't work, try reinstalling PreMiD <a href='https://premid.app/downloads'>here</a>.", b: [{ t: "Yes", a: "s" }, { t: "No" }] },
+  { p: "Try opening <a href='https://premid.app'>our main site</a>. Does it display a presence for that?", s: "Make sure you've installed the presence for the site you want it to display for. If a presence doesn't work, please explain the issue in the #support channel in our Discord server.", b: [{ t: "Yes", a: "s" }, { t: "No" }] },
   { p: "Your issue couldn't be diagnosed. Try explaining your issue in the #support channel in our Discord server.", b: [] }
 ]
 let current = 0
@@ -19,12 +20,12 @@ function cont(a, b) {
     current++
     ask()
   } else if (a === "s") {
-    ts.innerHTML += e.s
+    ts.innerHTML += `<br>${e.s}`
   } else if (typeof a === "number") {
     current = a
     ask()
   } else {
-    ts.innerHTML += a
+    ts.innerHTML += `<br>${a}`
   }
 }
 
@@ -40,9 +41,10 @@ function ask() {
     e.b.forEach(b => {
       a = b.a || "next"
       t = b.t || "Button"
-      div.innerHTML += `<a onclick="cont('${a}', this)">${t}</a> `
+      div.innerHTML += `<a onclick='cont("${a}", this)'>${t}</a> `
     })
   } else {
-    div.innerHTML = `<a onclick="cont('next', this)">Yes</a> <a onclick="cont('s', this)">No</a>`
+    div.innerHTML = `<a onclick='cont("next", this)'>Yes</a> <a onclick='cont("s", this)'>No</a>`
   }
+  window.scrollTo(0, document.body.scrollHeight)
 }
