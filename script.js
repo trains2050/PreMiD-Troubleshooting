@@ -30,7 +30,8 @@ function cont(a, b) {
 
 function ask() {
   let e = questions[current]
-  ts.innerHTML += `${e.p}<br>`
+  if (current === 0) ts.innerHTML += `${e.p}<br>`
+  else ts.innerHTML += `<br>${e.p}<br>`
 
   let div = document.createElement("div")
   div.classList.add("buttons")
