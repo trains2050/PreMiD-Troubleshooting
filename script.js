@@ -9,6 +9,8 @@ const questions = [
 ]
 let current = 0
 let ts = document.getElementById("ts")
+let url = new URL(document.location)
+let params = url.searchParams
 
 ask()
 
@@ -16,6 +18,9 @@ function cont(a, b) {
   let e = questions[current]
   b.parentElement.innerHTML = b.innerHTML
   ts.innerHTML = "<b>" + ts.innerHTML + "</b>"
+  if (!params.has(current)) params.append(current, b.id)
+  window.history.pushState({}, "", url)
+  document.getElementById("reset").style.display = "unset"
   if (a === "next") {
     current++
     ask()
@@ -46,14 +51,17 @@ function ask() {
     e.b.forEach(b => {
       a = b.a || "next"
       t = b.t || "Button"
-      div.innerHTML += `<a onclick='cont("${a}", this)'>${t}</a> `
+      div.innerHTML += `<a id='${t}' onclick='cont("${a}", this)'>${t}</a> `
     })
   } else {
-    div.innerHTML = `<a onclick='cont("next", this)'>Yes</a> <a onclick='cont("s", this)'>No</a>`
+    div.innerHTML = `<a id='Yes' onclick='cont("next", this)'>Yes</a> <a id='No' onclick='cont("s", this)'>No</a>`
   }
   window.scrollTo({
     top: document.body.scrollHeight,
     left: 0,
     behavior: 'smooth'
   })
+  if (params.has(current)) {
+    document.getElementById(params.get(current)).click()
+  }
 }
