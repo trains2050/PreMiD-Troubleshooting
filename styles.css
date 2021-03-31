@@ -10,6 +10,15 @@ h1 {
     font-size: xx-large;
 }
 
+.buttons {
+    display: grid;
+}
+
+.buttons>a::before {
+    color: white;
+    content: "> ";
+}
+
 a {
     margin: 0;
     color: #7289da;
@@ -19,7 +28,11 @@ a {
 }
 
 a:hover, a:focus {
-    color: #ffffffe6;
+    color: #bec7e9;
+}
+
+b>a {
+    color: #585e75;
 }
 
 b {
@@ -32,4 +45,8 @@ b {
 i {
     font-size: 5px;
     opacity: 0;
+}
+
+#reset::before, #back::after {
+    content: "\00a0";
 }

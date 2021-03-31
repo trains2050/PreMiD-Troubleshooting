@@ -1,26 +1,68 @@
-const questions = [
-  { p: "Have you installed the PreMiD extension and application?", s: "Please install the PreMiD extension and app from <a href='https://premid.app/downloads'>our site</a>." },
-  { p: "Are you using Discord's desktop app (not the website)?", s: "Please switch to the desktop app, which you can download <a href='https://discord.com/download'>here</a>." },
-  { p: "Are you using a modified version of Discord's desktop app (like BetterDiscord)?", s: "Please switch to the official desktop app, which you can download <a href='https://discord.com/download'>here</a>.", b: [{ t: "Yes", a: "s" }, { t: "No" }] },
-  { p: "Have you enabled your Game Activity settings in Discord settings?", s: "Please enable the option in Discord settings under Game Activity." },
-  { p: "When you open the extension in your browser, do you see a yellow (!)?", s: "Make sure the PreMiD application is running. If this doesn't work, try restarting your browser. Also make sure you haven't run Discord with administrator rights.<br>If these steps don't work, try reinstalling PreMiD <a href='https://premid.app/downloads'>here</a>.", b: [{ t: "Yes", a: "s" }, { t: "No" }] },
-  { p: "Try opening <a href='https://premid.app'>our main site</a>. Does it display a presence for that?", s: "Make sure you've installed the presence for the site you want it to display for. If a presence doesn't work, please explain the issue in the #support channel in our Discord server.", b: [{ t: "Yes", a: "s" }, { t: "No" }] },
-  { p: "Your issue couldn't be diagnosed. Try explaining your issue in the #support channel in our Discord server.", b: [] }
-]
 let current = 0
-let ts = document.getElementById("ts")
 let url = new URL(document.location)
 let params = url.searchParams
+let questions, strings, langCode
+let ts = document.getElementById("ts")
 
-ask()
+localise(1)
+start(1)
+
+function start(t) {
+  let langCookie = document.cookie.split("lang=")[1]
+  if (langCookie) langCookie = langCookie.split(";")[0]
+  langCode = langCookie || window.navigator.language || "en"
+  if (t > 1) langCode = window.navigator.language.split("-")[0] || "en"
+  if (t > 2) langCode = "en"
+  if (t > 3) {
+    ts.innerHTML = "Couldn't load troubleshooter."
+    return console.error("Loading steps: Aborted.")
+  }
+
+  fetch(`./${langCode}.json`)
+    .then((response) => response.json())
+    .then((data) => {
+      questions = data.steps
+      ts.innerHTML = ""
+      ask()
+    })
+    .catch(() => {
+      console.log("Loading steps: Failed.")
+      start(t + 1)
+    })
+}
+
+function localise(t) {
+  let langCookie = document.cookie.split("lang=")[1]
+  if (langCookie) langCookie = langCookie.split(";")[0]
+  langCode = langCookie || window.navigator.language || "en"
+  if (t > 1) langCode = window.navigator.language.split("-")[0] || "en"
+  if (t > 2) langCode = "en"
+  if (t > 3) return console.error("Loading strings: Aborted.")
+
+  fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${langCode}.json`)
+    .then((response) => { return response.json() })
+    .then((data) => {
+      strings = data
+      if (!strings) localise(t + 1)
+      document.documentElement.lang = langCode
+      document.querySelectorAll("*[data-i18n]").forEach(e => e.innerHTML = strings[e.dataset.i18n] || e.innerHTML)
+      document.querySelectorAll(".i18n").forEach(e => e.innerHTML = strings[e.innerHTML] || e.innerHTML)
+    })
+    .catch(() => {
+      console.log("Loading strings: Failed.")
+      localise(t + 1)
+    })
+}
+
 
 function cont(a, b) {
   let e = questions[current]
-  b.parentElement.innerHTML = b.innerHTML
+  b.parentElement.innerHTML = `> ${b.innerHTML}`
   ts.innerHTML = "<b>" + ts.innerHTML + "</b>"
   if (!params.has(current)) params.append(current, b.id)
   window.history.pushState({}, "", url)
   document.getElementById("reset").style.display = "unset"
+  if (current >= 1) document.getElementById("back").style.display = "unset"
   if (a === "next") {
     current++
     ask()
@@ -64,4 +106,12 @@ function ask() {
   if (params.has(current)) {
     document.getElementById(params.get(current)).click()
   }
+}
+
+function back() {
+  let ps = []
+  for (const [key] of params) ps.push(key)
+  params.delete(ps[ps.length - 1])
+  window.history.pushState({}, "", url)
+  window.location.reload()
 }
