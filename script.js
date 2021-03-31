@@ -48,8 +48,8 @@ function localise(t) {
             document.documentElement.lang = langCode
             document.querySelectorAll("*[data-i18n]").forEach(e => e.innerHTML = strings[e.dataset.i18n] || e.innerHTML)
             document.querySelectorAll(".i18n").forEach(e => e.innerHTML = strings[e.innerHTML] || e.innerHTML)
-            yes = strings[yes]
-            no = strings[no]
+            yes = strings[yes] || yes
+            no = strings[no] || no
         })
         .catch(() => {
             console.log("Loading strings: Failed.")
