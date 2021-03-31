@@ -1,0 +1,98 @@
+{
+    "steps": [
+        {
+            "p": "Heb je zowel de PreMiD-extensie als de applicatie geïnstalleerd?",
+            "s": "Installeer de PreMiD-extensie en -applicatie van <a href='https://premid.app/downloads'>onze site</a>."
+        },
+        {
+            "p": "Hoe gebruik je Discord?",
+            "s": "Schakel over naar de officiële desktop-app, die je <a href='https://discord.com/download'>hier</a> kunt downloaden.",
+            "b": [
+                {
+                    "t": "Via de desktop-app"
+                },
+                {
+                    "t": "Op mijn telefoon of tablet",
+                    "a": "PreMiD werkt nog niet op mobiele apparaten!"
+                },
+                {
+                    "t": "In mijn browser",
+                    "a": "s"
+                }
+            ]
+        },
+        {
+            "p": "Gebruik je een aangepaste versie van de desktop-app van Discord (zoals BetterDiscord)?",
+            "s": "Schakel over naar de officiële desktop-app, die je <a href='https://discord.com/download'>hier</a> kunt downloaden.",
+            "b": [
+                {
+                    "t": "Ja",
+                    "a": "s"
+                },
+                {
+                    "t": "Nee"
+                }
+            ]
+        },
+        {
+            "p": "Heb je Game-activiteit ingeschakeld in je instellingen van Discord?",
+            "s": "Schakel de optie in in Discord-instellingen onder Game-activiteit."
+        },
+        {
+            "p": "Als je de extensie in je browser opent, zie je dan een gele (!)?",
+            "s": "Zorg ervoor dat de PreMiD-applicatie wordt uitgevoerd. Als dit niet werkt, probeer dan je browser opnieuw te starten. Zorg er ook voor dat je Discord niet gebruikt met beheerdersrechten.<br>Als deze stappen niet werken, probeer dan PreMiD <a href='https://premid.app/downloads'>hier</a> opnieuw te installeren.",
+            "b": [
+                {
+                    "t": "Ja",
+                    "a": "s"
+                },
+                {
+                    "t": "Nee"
+                }
+            ]
+        },
+        {
+            "p": "Probeer <a href='https://premid.app'>onze hoofdsite</a> te openen. Komt er dan wel een presence tevoorschijn?",
+            "s": "Zorg ervoor dat je de presence hebt geïnstalleerd voor de site waarvoor je hem wilt weergeven. Als een presence niet werkt, leg dan het probleem uit in het #support-kanaal in onze Discord-server.",
+            "b": [
+                {
+                    "t": "Ja",
+                    "a": "s"
+                },
+                {
+                    "t": "Nee"
+                }
+            ]
+        },
+        {
+            "p": "Welke browser gebruik je?",
+            "s": "Ga naar 'brave://settings/shields' en schakel 'Trackers & advertenties blokkeren' uit.",
+            "b": [
+                {
+                    "t": "Microsoft Edge"
+                },
+                {
+                    "t": "Google Chrome"
+                },
+                {
+                    "t": "Mozilla Firefox"
+                },
+                {
+                    "t": "Brave",
+                    "a": "s"
+                },
+                {
+                    "t": "Een andere Chromium-browser"
+                },
+                {
+                    "t": "Een andere niet-Chromium-browser",
+                    "a": "PreMiD werkt mogelijk (nog) niet op je browser. Controleer dit in onze Discord-server!"
+                }
+            ]
+        },
+        {
+            "p": "Deze probleemoplosser kon je probleem niet analyseren. Probeer je probleem uit te leggen in het #support-kanaal in onze Discord-server.",
+            "b": []
+        }
+    ]
+}

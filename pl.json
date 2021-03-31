@@ -1,0 +1,98 @@
+{
+    "steps": [
+        {
+            "p": "Czy zainstalowałeś zarówno rozszerzenie PreMiD jak i aplikację?",
+            "s": "Please install the PreMiD extension and application from <a href='https://premid.app/downloads'>our site</a>."
+        },
+        {
+            "p": "Gdzie używasz Discorda?",
+            "s": "Przełącz się na oficjalną aplikację na komputer, którą możesz pobrać <a href='https://discord.com/download'>tutaj</a>.",
+            "b": [
+                {
+                    "t": "W aplikacji na komputer"
+                },
+                {
+                    "t": "Na telefonie lub tablecie",
+                    "a": "PreMiD nie działa jeszcze na urządzeniach mobilnych!"
+                },
+                {
+                    "t": "W przeglądarce",
+                    "a": "s"
+                }
+            ]
+        },
+        {
+            "p": "Czy używasz zmodyfikowanej wersji aplikacji Discorda na komputer (np. BetterDiscord)?",
+            "s": "Przełącz się na oficjalną aplikację na komputer, którą możesz pobrać <a href='https://discord.com/download'>tutaj</a>.",
+            "b": [
+                {
+                    "t": "Tak",
+                    "a": "s"
+                },
+                {
+                    "t": "Nie"
+                }
+            ]
+        },
+        {
+            "p": "Have you enabled Game Activity in your Discord settings?",
+            "s": "Proszę włączyć tą opcję w ustawieniach Discorda w zakładce Aktywność w grze."
+        },
+        {
+            "p": "Gdy otworzysz rozszerzenie w przeglądarce, czy widzisz żółte (!)?",
+            "s": "Upewnij się, że aplikacja PreMiD jest uruchomiona. Jeśli to nie pomoże, spróbuj uruchomić ponownie przeglądarkę. Upewnij się, że nie uruchomiłeś Discorda z uprawnieniami administratora.<br>Jeśli te kroki nie zadziałają, spróbuj ponownie zainstalować PreMiD <a href='https://premid.app/downloads'>tutaj</a>.",
+            "b": [
+                {
+                    "t": "Tak",
+                    "a": "s"
+                },
+                {
+                    "t": "Nie"
+                }
+            ]
+        },
+        {
+            "p": "Spróbuj otworzyć <a href='https://premid.app'>naszą stronę internetową</a>. Czy dla tej strony wyświetla się Presence?",
+            "s": "Upewnij się, że zainstalowałeś Presence dla strony którą chcesz wyświetlić. Jeśli ten Presence nie działa, proszę wyjaśnij Twój problem na kanale #support na naszym serwerze Discord.",
+            "b": [
+                {
+                    "t": "Tak",
+                    "a": "s"
+                },
+                {
+                    "t": "Nie"
+                }
+            ]
+        },
+        {
+            "p": "Jakiej przeglądarki używasz?",
+            "s": "Wejdź na stronę 'brave://settings/shields' i wyłącz 'Trackers & ads blocking'.",
+            "b": [
+                {
+                    "t": "Microsoft Edge"
+                },
+                {
+                    "t": "Google Chrome"
+                },
+                {
+                    "t": "Mozilla Firefox"
+                },
+                {
+                    "t": "Brave",
+                    "a": "s"
+                },
+                {
+                    "t": "Inna przeglądarka bazowana na Chromium"
+                },
+                {
+                    "t": "Inna przeglądarka nie bazowana na Chromium",
+                    "a": "PreMiD może jeszcze nie działać w Twojej przeglądarce. Dołącz do naszego serwera Discorda i sprawdź to!"
+                }
+            ]
+        },
+        {
+            "p": "Ten system rozwiązywania problemów nie mógł zdiagnozować twojego problemu. Spróbuj wyjaśnić Twój problem na kanale #support na naszym serwerze Discord.",
+            "b": []
+        }
+    ]
+}
