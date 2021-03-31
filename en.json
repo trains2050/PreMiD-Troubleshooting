@@ -1,8 +1,8 @@
 {
     "steps": [
-        { "p": "Have you installed both the PreMiD extension and application?", "s": "Please install the PreMiD extension and app from <a href='https://premid.app/downloads'>our site</a>."
+        { "p": "Have you installed both the PreMiD extension and application?", "s": "Please install the PreMiD extension and application from <a href='https://premid.app/downloads'>our site</a>."
         },
-        { "p": "How are you using Discord?", "s": "Please switch to the desktop app, which you can download <a href='https://discord.com/download'>here</a>.", "b": [
+        { "p": "How are you using Discord?", "s": "Please switch to the official desktop app, which you can download <a href='https://discord.com/download'>here</a>.", "b": [
                 { "t": "Via the desktop app"
                 },
                 { "t": "On my phone or tablet", "a": "PreMiD does not work on mobile devices yet!"
@@ -18,7 +18,7 @@
                 }
             ]
         },
-        { "p": "Have you enabled your Game Activity settings in Discord settings?", "s": "Please enable the option in Discord settings under Game Activity."
+        { "p": "Have you enabled Game Activity in your Discord settings?", "s": "Please enable the option in Discord settings under Game Activity."
         },
         { "p": "When you open the extension in your browser, do you see a yellow (!)?", "s": "Make sure the PreMiD application is running. If this doesn't work, try restarting your browser. Also make sure you haven't run Discord with administrator rights.<br>If these steps don't work, try reinstalling PreMiD <a href='https://premid.app/downloads'>here</a>.", "b": [
                 { "t": "Yes", "a": "s"
