@@ -6,7 +6,6 @@ let questions, strings, langCode
 let yes = "Yes", no = "No"
 
 localise(1)
-start(1)
 
 function start(t) {
     let langCookie = document.cookie.split("lang=")[1]
@@ -38,7 +37,10 @@ function localise(t) {
     langCode = langCookie || window.navigator.language || "en"
     if (t > 1) langCode = window.navigator.language.split("-")[0] || "en"
     if (t > 2) langCode = "en"
-    if (t > 3) return console.error("Loading strings: Aborted.")
+    if (t > 3) {
+        start(1)
+        return console.error("Loading strings: Aborted.")
+    }
 
     fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${langCode}.json`)
         .then((response) => { return response.json() })
@@ -50,6 +52,7 @@ function localise(t) {
             document.querySelectorAll(".i18n").forEach(e => e.innerHTML = strings[e.innerHTML] || e.innerHTML)
             yes = strings[yes] || yes
             no = strings[no] || no
+            start(1)
         })
         .catch(() => {
             console.log("Loading strings: Failed.")
