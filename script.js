@@ -1,8 +1,9 @@
 let current = 0
 let url = new URL(document.location)
 let params = url.searchParams
-let questions, strings, langCode
 let ts = document.getElementById("ts")
+let questions, strings, langCode
+let yes = "Yes", no = "No"
 
 localise(1)
 start(1)
@@ -47,6 +48,8 @@ function localise(t) {
             document.documentElement.lang = langCode
             document.querySelectorAll("*[data-i18n]").forEach(e => e.innerHTML = strings[e.dataset.i18n] || e.innerHTML)
             document.querySelectorAll(".i18n").forEach(e => e.innerHTML = strings[e.innerHTML] || e.innerHTML)
+            yes = strings[yes]
+            no = strings[no]
         })
         .catch(() => {
             console.log("Loading strings: Failed.")
@@ -96,7 +99,7 @@ function ask() {
             div.innerHTML += `<a id='${t}' onclick='cont("${a}", this)'>${t}</a> `
         })
     } else {
-        div.innerHTML = `<a id='Yes' onclick='cont("next", this)'>Yes</a> <a id='No' onclick='cont("s", this)'>No</a>`
+        div.innerHTML = `<a id='${yes}' onclick='cont("next", this)'>${yes}</a> <a id='${no}' onclick='cont("s", this)'>${no}</a>`
     }
     window.scrollTo({
         top: document.body.scrollHeight,

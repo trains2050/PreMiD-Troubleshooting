@@ -30,13 +30,15 @@
 </head>
 
 <body>
-    <div style="display: grid; grid-template-columns: auto min-content min-content;">
+    <header>
         <h1 style="margin-top: 0;">PreMiD Troubleshooting</h1>
-        <a id="back" style="display: none;" onclick="back()" class="i18n">Back</a>
-        <a id="reset" style="display: none;" onclick="window.location.href = window.location.href.split('?')[0]"
-            class="i18n">Restart</a>
-    </div>
-    <div id="ts">Preparing troubleshooter...</div>
+        <div>
+            <a id="back" style="display: none;" onclick="back()" class="i18n">Back</a>
+            <a id="reset" style="display: none;" onclick="window.location.href = window.location.href.split('?')[0]"
+                class="i18n">Restart</a>
+        </div>
+    </header>
+    <main id="ts">Preparing troubleshooter...</main>
 </body>
 
 </html>
