@@ -1,7 +1,8 @@
 pull_request_rules:
-  - name: Automatic merge on approval
+  - name: Merge localisations
     conditions:
-      - "#approved-reviews-by>=1"
+      - author=QkeleQ10
+      - check-success=GitGuardian Security Checks
     actions:
       merge:
-        method: merge
+        method: squash
