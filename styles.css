@@ -1,18 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap');
 body {
     background-color: #111218;
-    font-family: monospace;
-    font-size: x-large;
+    font-family: "Fira Code", monospace;
+    font-size: larger;
     color: #ffffffe6;
     margin: 40px;
 }
 
 header {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     grid-auto-flow: column;
     justify-content: space-between;
+    margin-bottom: 15px;
+    gap: 5px;
 }
+
 h1 {
-    font-size: xx-large;
+    margin: 0;
+    font-size: x-large;
+    word-wrap: break-word;
+}
+
+h2 {
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
+.tools {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 20px;
+    
 }
 
 .buttons {
@@ -52,6 +74,36 @@ i {
     opacity: 0;
 }
 
-#reset::before, #back::after {
-    content: "\00a0";
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bk2);
+    padding: 20px;
+    box-shadow: 0 0 5px var(--shadow);
+    border-radius: 6px;
+}
+
+.popupbk {
+    position: fixed;
+    size: 100vh 100vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #111218cc;
+}
+
+#langlist {
+    display: grid;
+}
+
+#langlist>*::before {
+    color: white;
+    content: "> ";
+}
+
+.hidden {
+    display: none;
 }

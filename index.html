@@ -9,7 +9,7 @@
 
     <link rel="icon" href="https://premid.app/assets/meta/favicon.ico">
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <script src="index.js" defer></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta data-n-head="ssr" data-hid="theme-color" name="theme-color" content="#7289DA">
@@ -30,15 +30,28 @@
 </head>
 
 <body>
+
     <header>
-        <h1 style="margin-top: 0;">PreMiD Troubleshooting</h1>
-        <div>
+        <h1 style="margin-top: 0;">PreMiD Trouble&shy;shooting</h1>
+        <div class="tools">
             <a id="back" style="display: none;" onclick="back()" class="i18n">Back</a>
             <a id="reset" style="display: none;" onclick="window.location.href = window.location.href.split('?')[0]"
                 class="i18n">Restart</a>
+            <a id="language" onclick="openlangpicker()" class="i18n">Language</a>
         </div>
     </header>
+
     <main id="ts">Preparing troubleshooter...</main>
+
+    <div class="popupbk hidden"
+        onclick="this.classList.add('hidden'); document.getElementsByClassName('popup')[0].classList.add('hidden')">
+    </div>
+    <div id="langpopup" class="popup hidden">
+        <h2 class="i18n">Select a language</h2>
+        <p class="i18n">Changing your language will clear your progress.</p>
+        <div id="langlist"></div>
+    </div>
+
 </body>
 
 </html>
