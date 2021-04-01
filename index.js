@@ -19,7 +19,7 @@ function start(t) {
         return console.error("Loading steps: Aborted.")
     }
 
-    fetch(`./${langCode}.json`)
+    fetch(`./strings/${langCode}.json`)
         .then((response) => response.json())
         .then((data) => {
             questions = data.steps
@@ -44,7 +44,7 @@ function localise(t) {
     }
 
     fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${langCode}.json`)
-        .then((response) => { return response.json() })
+        .then((response) => response.json())
         .then((data) => {
             strings = data
             if (!strings) localise(t + 1)
