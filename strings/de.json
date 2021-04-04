@@ -1,72 +1,72 @@
 {
     "steps": [
         {
-            "p": "Have you installed both the PreMiD extension and application?",
-            "s": "Please install the PreMiD extension and application from <a href='https://premid.app/downloads'>our site</a>."
+            "p": "Hast du sowohl die PreMiD-Erweiterung als auch die Anwendung installiert?",
+            "s": "Bitte installiere die PreMiD-Erweiterung und Anwendung von <a href='https://premid.app/downloads'>unserer Seite</a>."
         },
         {
-            "p": "How are you using Discord?",
-            "s": "Please switch to the official desktop app, which you can download <a href='https://discord.com/download'>here</a>.",
+            "p": "Wie verwendest du Discord?",
+            "s": "Bitte wechsele zur offiziellen Desktop-App, die du <a href='https://discord.com/download'>hier</a> herunterladen kannst.",
             "b": [
                 {
-                    "t": "Via the desktop app"
+                    "t": "Über die Desktop App"
                 },
                 {
-                    "t": "On my phone or tablet",
-                    "a": "PreMiD does not work on mobile devices yet!"
+                    "t": "Auf meinem Telefon oder Tablet",
+                    "a": "PreMiD funktioniert noch nicht auf mobilen Geräten!"
                 },
                 {
-                    "t": "In my browser",
+                    "t": "In meinem Browser",
                     "a": "s"
                 }
             ]
         },
         {
-            "p": "Are you using a modified version of Discord's desktop app (like BetterDiscord)?",
-            "s": "Please switch to the official desktop app, which you can download <a href='https://discord.com/download'>here</a>.",
+            "p": "Verwendest du eine modifizierte Version von Discords Desktop-App (wie z.B. BetterDiscord)?",
+            "s": "Bitte wechsele zur offiziellen Desktop-App, die du <a href='https://discord.com/download'>hier</a> herunterladen kannst.",
             "b": [
                 {
-                    "t": "Yes",
+                    "t": "Ja",
                     "a": "s"
                 },
                 {
-                    "t": "No"
+                    "t": "Nein"
                 }
             ]
         },
         {
-            "p": "Have you enabled Game Activity in your Discord settings?",
-            "s": "Please enable the option in Discord settings under Game Activity."
+            "p": "Hast du die Spielaktivität in deinen Discord-Einstellungen aktiviert?",
+            "s": "Bitte aktiviere die Option in den Discord-Einstellungen unter Spielaktivität."
         },
         {
-            "p": "When you open the extension in your browser, do you see a yellow (!)?",
-            "s": "Make sure the PreMiD application is running. If this doesn't work, try restarting your browser. Also make sure you haven't run Discord with administrator rights.<br>If these steps don't work, try reinstalling PreMiD <a href='https://premid.app/downloads'>here</a>.",
+            "p": "Wenn du die Erweiterung in deinem Browser öffnest, siehst du dann ein gelbes (!)?",
+            "s": "Stelle sicher, dass die PreMiD-Anwendung läuft. Wenn dies nicht funktioniert, versuche deinen Browser neu zu starten. Stelle auch sicher, dass du Discord nicht mit Administratorrechten ausgeführt hast.<br>Wenn diese Schritte nicht funktionieren, installiere bitte PreMiD <a href='https://premid.app/downloads'>hier</a> erneut.",
             "b": [
                 {
-                    "t": "Yes",
+                    "t": "Ja",
                     "a": "s"
                 },
                 {
-                    "t": "No"
+                    "t": "Nein"
                 }
             ]
         },
         {
-            "p": "Try opening <a href='https://premid.app'>our main site</a>. Does it display a presence for that?",
-            "s": "Make sure you've installed the presence for the site you want it to display for. If a presence doesn't work, please explain the issue in the #support channel in our <a href='https://discord.premid.app'>Discord server</a>.",
+            "p": "Versuche <a href='https://premid.app'>unsere Hauptseite</a>zu öffnen. Zeigt sie hierfür eine Präsenz an?",
+            "s": "Stelle sicher, dass du die Präsenz für die Website installiert hast, für die sie angezeigt werden soll. Wenn eine Präsenz nicht funktioniert, schildere bitte das Problem im #support Channel auf unserem <a href='https://discord.premid.app'>Discord Server</a>.",
             "b": [
                 {
-                    "t": "Yes",
+                    "t": "Ja",
                     "a": "s"
                 },
                 {
-                    "t": "No"
+                    "t": "Nein"
                 }
             ]
         },
         {
-            "p": "What browser are you using?",
-            "s": "Please go to 'brave://settings/shields' and disable 'Trackers & ads blocking'.",
+            "p": "Welchen Browser verwendest du?",
+            "s": "Bitte gehe Sie auf 'brave://settings/shields' und deaktiviere 'Tracker- & Werbe-Blocking'.",
             "b": [
                 {
                     "t": "Microsoft Edge"
@@ -82,16 +82,16 @@
                     "a": "s"
                 },
                 {
-                    "t": "Another Chromium browser"
+                    "t": "Ein anderer Chromium-Browser"
                 },
                 {
-                    "t": "Another non-Chromium browser",
-                    "a": "PreMiD might not work on your browser (yet). Please join our <a href='https://discord.premid.app'>Discord server</a> and check with a staff member!"
+                    "t": "Ein anderer Nicht-Chromium-Browser",
+                    "a": "PreMiD funktioniert vielleicht (noch) nicht in deinem Browser. Bitte trete unserem <a href='https://discord.premid.app'>Discord Server</a> bei und überprüfe mit einem Mitarbeiter!"
                 }
             ]
         },
         {
-            "p": "This troubleshooter couldn't diagnose your issue. Try explaining your issue in the #support channel in our <a href='https://discord.premid.app'>Discord server</a>.",
+            "p": "Diese Problemlöser konnte dein Problem nicht diagnostizieren. Versuche dein Problem im #support Channel auf unserem <a href='https://discord.premid.app'>Discord Server</a> zu schildern.",
             "b": []
         }
     ]
