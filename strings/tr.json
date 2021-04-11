@@ -53,7 +53,7 @@
         },
         {
             "p": "Açmayı dene <a href='https://premid.app'>ana sitemiz</a>. Bunun için bir varlık gösteriyor mu?",
-            "s": "Make sure you've installed the presence for the site you want it to display for. If a presence doesn't work, please explain the issue in the #support channel in our <a href='https://discord.premid.app'>Discord server</a>.",
+            "s": "Görüntülenmesini istediğiniz sitenin varlığını kurduğunuzdan emin olun. Bir iletişim durumu işe yaramazsa, lütfen sorunu #support kanalımızda açıklayın. (İngilizce açıklarsanız daha iyi olur arkadaşlarım bunun için \"Google Translate\" kullanmanız daha iyi bir seçenek)\n <a href='https://discord.premid.app'>Discord Sunucusu</a>.\n",
             "b": [
                 {
                     "t": "Evet",
@@ -86,12 +86,12 @@
                 },
                 {
                     "t": "Chromium olmayan başka bir tarayıcı",
-                    "a": "PreMiD might not work on your browser (yet). Please join our <a href='https://discord.premid.app'>Discord server</a> and check with a staff member!"
+                    "a": "PreMiD, tarayıcınızda (henüz) çalışmayabilir. Lütfen katılın <a href='https://discord.premid.app'>Discord Sunucusu</a> ve bir personel ile kontrol edin!\n"
                 }
             ]
         },
         {
-            "p": "This troubleshooter couldn't diagnose your issue. Try explaining your issue in the #support channel in our <a href='https://discord.premid.app'>Discord server</a>.",
+            "p": "Bu sorun giderici, sorununuzu teşhis edemedi. Sorununuzu Discord sunucumuzdaki #support kanalında açıklamayı deneyin (İngilizce açıklarsanız daha iyi olur bunun için \"Google Translate\" tek seçenek olabilir sizler için canım arkadaşlarım) <a href='https://discord.premid.app'>Discord Sunucusu</a>.",
             "b": []
         }
     ]
