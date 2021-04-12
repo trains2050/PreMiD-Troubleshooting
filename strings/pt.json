@@ -40,7 +40,7 @@
         },
         {
             "p": "Ao abrires a extensão no teu navegador, vês um (!) amarelo?",
-            "s": "Certifica-te de que a aplicação do PreMiD está aberta. Se isto não funcionar, experimenta reiniciar o teu browser. Não te esqueças de verificar se não abriste o Discord como administrator.<br>Se estes passos não funcionarem, experimenta reinstalar o PreMiD <a href='https://premid.app/downloads'>aqui</a>.",
+            "s": "Certifica-te de que a aplicação do PreMiD está aberta. Se isto não funcionar, experimenta reiniciar o teu navegador. Não te esqueças de verificar se não abriste o Discord como administrator.<br>Se estes passos não funcionarem, experimenta reinstalar o PreMiD <a href='https://premid.app/downloads'>aqui</a>.",
             "b": [
                 {
                     "t": "Sim",
@@ -66,7 +66,7 @@
         },
         {
             "p": "Que navegador é que estás a usar?",
-            "s": "PreMiD might not work on your browser (yet). Please join our <a href=\"https://discord.premid.app\">Discord server</a> and check with a staff member!",
+            "s": "É possível que o PreMiD não funcione no teu navegador (ainda). Entra no nosso <a href=\"https://discord.premid.app\">servidor de Discord</a> e pergunta a um membro da staff!",
             "b": [
                 {
                     "t": "Microsoft Edge"
@@ -79,7 +79,7 @@
                 },
                 {
                     "t": "Brave",
-                    "a": "Please go to brave://settings/shields and disable the setting called Trackers & ads blocking."
+                    "a": "Vai a brave>//settings/shields e desativa a opção \"Rastreadores e bloqueadores de anúncios\"."
                 },
                 {
                     "t": "Outro navegador Chromium"
