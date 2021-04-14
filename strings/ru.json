@@ -66,7 +66,7 @@
         },
         {
             "p": "Какой браузер вы используете?",
-            "s": "PreMiD might not work on your browser (yet). Please join our <a href=\"https://discord.premid.app\">Discord server</a> and check with a staff member!",
+            "s": "PreMiD может не работать в вашем браузере (пока). Пожалуйста, присоединяйтесь к нашему<a href=\"https://discord.premid.app\">Discord сервер</a> и проверьте с помощью штатный сотрудник!",
             "b": [
                 {
                     "t": "Microsoft Edge"
@@ -79,7 +79,7 @@
                 },
                 {
                     "t": "Brave",
-                    "a": "Please go to brave://settings/shields and disable the setting called Trackers & ads blocking."
+                    "a": "Пожалуйста, зайдите в brave://settings/shields  и отключите настройку Трекеры и блокировка рекламы.\n"
                 },
                 {
                     "t": "Другой браузер Chromium"
