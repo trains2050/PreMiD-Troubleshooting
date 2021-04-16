@@ -1,6 +1,6 @@
 # PreMiD Troubleshooting Guide
 
-Welcome to the repository for the (unofficial) [PreMiD Troubleshooting Guide]()! This project is still a work-in-progress, so please excuse the cryptic and messy code.
+Welcome to the repository for the (unofficial) [PreMiD Troubleshooting Guide](https://qkeleq10.github.io/PreMiD-Troubleshooting/)! This project is still a work-in-progress, so please excuse the cryptic and messy code.
 
 ## Translation
 
