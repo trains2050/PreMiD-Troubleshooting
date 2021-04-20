@@ -1,7 +1,7 @@
 let current = 0
 let url = new URL(document.location)
 let params = url.searchParams
-let ts = document.getElementById("ts")
+let main = document.getElementById("main")
 let questions, strings, langCode
 let yes = "Yes", no = "No"
 
@@ -15,7 +15,7 @@ function start(t) {
     if (t > 2) langCode = "en"
     if (t > 3) { window.location.href = window.location.href.split('?')[0] }
     if (t > 4) {
-        ts.innerHTML = "Couldn't load troubleshooter."
+        main.innerHTML = "Couldn't load troubleshooter."
         return console.error("Loading steps: Aborted.")
     }
 
@@ -23,7 +23,7 @@ function start(t) {
         .then((response) => response.json())
         .then((data) => {
             questions = data.steps
-            ts.innerHTML = ""
+            main.innerHTML = ""
             ask()
         })
         .catch(() => {
@@ -89,7 +89,7 @@ function picklang(lang) {
 function cont(a, b) {
     let e = questions[current]
     b.parentElement.innerHTML = `> ${b.innerHTML}`
-    ts.innerHTML = "<b>" + ts.innerHTML + "</b>"
+    main.innerHTML = "<b>" + main.innerHTML + "</b>"
     if (!params.has(current)) params.append(current, b.id)
     window.history.pushState({}, "", url)
     document.getElementById("reset").style.display = "unset"
@@ -98,12 +98,12 @@ function cont(a, b) {
         current++
         ask()
     } else if (a === "s") {
-        ts.innerHTML += `<br>${e.s}`
+        main.innerHTML += `<br>${e.s}`
     } else if (typeof a === "number") {
         current = a
         ask()
     } else {
-        ts.innerHTML += `<br>${a}`
+        main.innerHTML += `<br>${a}`
     }
     window.scrollTo({
         top: document.body.scrollHeight,
@@ -114,12 +114,12 @@ function cont(a, b) {
 
 function ask() {
     let e = questions[current]
-    if (current === 0) ts.innerHTML += `${e.p}<br>`
-    else ts.innerHTML += `<br>${e.p}<br>`
+    if (current === 0) main.innerHTML += `${e.p}<br>`
+    else main.innerHTML += `<br>${e.p}<br>`
 
     let div = document.createElement("div")
     div.classList.add("buttons")
-    ts.appendChild(div)
+    main.appendChild(div)
     if (e.b) {
         e.b.forEach(b => {
             a = b.a || "next"

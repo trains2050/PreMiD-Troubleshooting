@@ -85,7 +85,7 @@ i {
     border-radius: 6px;
 }
 
-.popupbk {
+.popupBackground {
     position: fixed;
     size: 100vh 100vw;
     top: 0;
@@ -95,11 +95,11 @@ i {
     background-color: #111218cc;
 }
 
-#langlist {
+#languageList {
     display: grid;
 }
 
-#langlist>*::before {
+#languageList>*::before {
     color: white;
     content: "> ";
 }

@@ -34,22 +34,23 @@
     <header>
         <h1 class="i18n">PreMiD Trouble&shy;shooting</h1>
         <div class="tools">
-            <a id="back" style="display: none;" onclick="back()" class="i18n">Back</a>
+            <a id="previousQuestion" style="display: none;" onclick="previousQuestion()" class="i18n">Back</a>
             <a id="reset" style="display: none;" onclick="window.location.href = window.location.href.split('?')[0]"
                 class="i18n">Restart</a>
-            <a id="language" onclick="openlangpicker()" class="i18n">Language</a>
+            <a id="language" onclick="openLanguagePicker()" class="i18n">Language</a>
         </div>
     </header>
 
-    <main id="ts">Preparing troubleshooter...</main>
+    <main id="main">Preparing troubleshooter...</main>
 
-    <div class="popupbk hidden"
+    <!-- Popups -->
+    <div class="popupBackground hidden"
         onclick="this.classList.add('hidden'); document.getElementsByClassName('popup')[0].classList.add('hidden')">
     </div>
-    <div id="langpopup" class="popup hidden">
+    <div id="languagePicker" class="popup hidden">
         <h2 class="i18n">Select a language</h2>
         <p class="i18n">Changing your language will clear your progress.</p>
-        <div id="langlist"></div>
+        <div id="languageList"></div>
     </div>
 
 </body>

@@ -1,0 +1,141 @@
+[
+    [
+        "installedBoth",
+        [
+            {
+                "text": "yes"
+            },
+            {
+                "text": "no",
+                "deadend": "installBoth"
+            }
+        ]
+    ],
+    [
+        "discordPlatform",
+        [
+            {
+                "text": "desktopApp"
+            },
+            {
+                "text": "mobile",
+                "deadend": "noMobileSupport"
+            },
+            {
+                "text": "browser",
+                "deadend": "downloadDiscord"
+            }
+        ]
+    ],
+    [
+        "discordModded",
+        [
+            {
+                "text": "yes",
+                "deadend": "downloadDiscord"
+            },
+            {
+                "text": "no"
+            }
+        ]
+    ],
+    [
+        "discordGameActivity",
+        [
+            {
+                "text": "yes"
+            },
+            {
+                "text": "no",
+                "deadend": "enableGameActivity"
+            }
+        ]
+    ],
+    [
+        "extensionExclamation",
+        [
+            {
+                "text": "yesYellow",
+                "deadend": "applicationRunning"
+            },
+            {
+                "text": "yesRed",
+                "deadend": "applicationUpdated"
+            },
+            {
+                "text": "no"
+            }
+        ]
+    ],
+    [
+        "presenceMainSite",
+        [
+            {
+                "text": "yes",
+                "deadend": "specificPresenceIssue"
+            },
+            {
+                "text": "no"
+            }
+        ]
+    ],
+    [
+        "whatOS",
+        [
+            {
+                "text": "windowsNew"
+            },
+            {
+                "text": "windowsOld",
+                "deadend": "upgradeWindows"
+            },
+            {
+                "text": "macosNew"
+            },
+            {
+                "text": "macosOld",
+                "deadend": "updateMacos"
+            },
+            {
+                "text": "chromeos",
+                "deadend": "noChromeosSupport"
+            },
+            {
+                "text": "anotherLinux",
+                "deadend": "linuxUnsure"
+            }
+        ]
+    ],
+    [
+        "whatBrowser",
+        [
+            {
+                "text": "microsoftEdge"
+            },
+            {
+                "text": "googleChrome"
+            },
+            {
+                "text": "mozillaFirefox"
+            },
+            {
+                "text": "safari"
+            },
+            {
+                "text": "opera",
+                "deadend": "operaComplication"
+            },
+            {
+                "text": "brave",
+                "deadend": "braveComplication"
+            },
+            {
+                "text": "otherChromium"
+            },
+            {
+                "text": "otherNonChromium",
+                "deadend": "browserUnsure"
+            }
+        ]
+    ]
+]
