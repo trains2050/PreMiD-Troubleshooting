@@ -65,8 +65,36 @@
             ]
         },
         {
+            "p": "What operating system (OS) are you using?",
+            "s": "PreMiD does support most Linux distrubutions, but not all of them. Please read this <a href='https://github.com/PreMiD/Linux/blob/master/README.md'>GitHub article</a>. If that doesn't help, open a ticket in the #support channel in our <a href='https://discord.premid.app'>Discord server</a>.",
+            "b": [
+                {
+                    "t": "Windows 10/8/7"
+                },
+                {
+                    "t": "Windows Vista or older",
+                    "a": "PreMiD does not support your operating system and will most likely never support it in the future. Please consider upgrading to a newer operating system such as Windows 10!"
+                },
+                {
+                    "t": "Mac OS 10.11 or newer"
+                },
+                {
+                    "t": "Mac OS 10.10 or older",
+                    "a": "PreMiD does not support your operating system and will most likely never support it in the future. Please consider upgrading to a newer operating system. Check out this <a href=\\\"https://support.apple.com/en-gb/HT201541\\\">Apple help guide</a> for more info."
+                },
+                {
+                    "t": "Chrome OS",
+                    "a": "PreMiD does not support Chrome OS yet. Attempting to use it might get your device stuck in a bootloop!"
+                },
+                {
+                    "t": "Another Linux-based operating system",
+                    "a": "s"
+                }
+            ]
+        },
+        {
             "p": "What browser are you using?",
-            "s": "PreMiD might not work on your browser (yet). Please join our <a href=\"https://discord.premid.app\">Discord server</a> and check with a staff member!",
+            "s": "PreMiD might not work on your browser (yet). Please join our <a href=\"https://discord.premid.app\">Discord server</a> and check with a support agent!",
             "b": [
                 {
                     "t": "Microsoft Edge"
