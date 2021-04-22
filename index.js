@@ -93,7 +93,7 @@ function cont(a, b) {
     if (!params.has(current)) params.append(current, b.id)
     window.history.pushState({}, "", url)
     document.getElementById("reset").style.display = "unset"
-    if (current >= 1) document.getElementById("back").style.display = "unset"
+    if (current >= 1) document.getElementById("previousQuestion").style.display = "unset"
     if (a === "next") {
         current++
         ask()
@@ -139,7 +139,7 @@ function ask() {
     }
 }
 
-function back() {
+function previousQuestion() {
     let ps = []
     for (const [key] of params) ps.push(key)
     params.delete(ps[ps.length - 1])
