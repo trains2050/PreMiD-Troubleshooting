@@ -122,7 +122,7 @@ function followup(followup, index, element) {
 
 // Open the language menu
 function openLanguagePicker() {
-    let languages = [["en", "English"], ["nl", "Nederlands"], ["de", "Deutsch"], ["fr", "Français"], ["pt", "Português"], ["pl", "Polski"], ["ru", "Русский"], ["tr", "Türkçe"], ["id", "Bahasa Indonesia"], ["ms", "Bahasa Melayu"]]
+    let languages = [["en", "English"], ["nl", "Nederlands"], ["de", "Deutsch"], ["fr", "Français"], ["pt", "Português"], ["pl", "Polski"], ["ru", "Русский"], ["tr", "Türkçe"], ["bn", "বাংলা"]]
 
     let p = document.getElementById("languagePicker")
     p.classList.remove("hidden")
