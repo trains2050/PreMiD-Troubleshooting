@@ -1,144 +1,153 @@
-let current = 0
 let url = new URL(document.location)
 let params = url.searchParams
 let main = document.getElementById("main")
-let questions, strings, langCode
-let yes = "Yes", no = "No"
+let questions, strings, languageCode, number, availableLanguages
 
-localise(1)
+// Set language
+let languageCookie = document.cookie.split("language=")[1]
+if (languageCookie) languageCookie = languageCookie.split(";")[0]
+languageCode = languageCookie || window.navigator.language
 
-function start(t) {
-    let langCookie = document.cookie.split("lang=")[1]
-    if (langCookie) langCookie = langCookie.split(";")[0]
-    langCode = langCookie || window.navigator.language || "en"
-    if (t > 1) langCode = window.navigator.language.split("-")[0] || "en"
-    if (t > 2) langCode = "en"
-    if (t > 3) { window.location.href = window.location.href.split('?')[0] }
-    if (t > 4) {
-        main.innerHTML = "Couldn't load troubleshooter."
-        return console.error("Loading steps: Aborted.")
-    }
 
-    fetch(`./strings/${langCode}.json`)
-        .then((response) => response.json())
-        .then((data) => {
-            questions = data.steps
-            main.innerHTML = ""
-            ask()
-        })
-        .catch(() => {
-            console.log("Loading steps: Failed.")
-            start(t + 1)
-        })
+// Fetch strings
+fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${languageCode || "en"}.json`)
+    .then((response) => response.json())
+    .then((data) => {
+
+        strings = data
+        if (!strings) {
+            document.cookie = "language=en"
+            main.innerHTML = "Language not available. Hang on..."
+            setTimeout(() => window.location.reload(), 1000)
+        }
+        document.documentElement.lang = languageCode
+        document.querySelectorAll("*[data-i18n]").forEach(e => e.innerHTML = strings[e.dataset.i18n] || e.innerHTML)
+        document.querySelectorAll(".i18n").forEach(e => e.innerHTML = strings[e.innerHTML] || e.innerHTML)
+
+
+        // Fetch questions
+        fetch(`steps.json`)
+            .then((response) => response.json())
+            .then((data) => {
+                questions = data
+                main.innerHTML = ""
+                number = 0
+                askQuestion()
+            })
+            .catch(e => {
+                console.error(e)
+            })
+
+    })
+    .catch(e => {
+        document.cookie = "language=en"
+        main.innerHTML = "Language not available. Hang on..."
+        setTimeout(() => window.location.reload(), 1000)
+        console.info("Error:")
+        console.error(e)
+    })
+
+
+
+// Ask a question
+function askQuestion() {
+    let question = questions[number]
+
+    // Add spacing and append question
+    if (number == 0) main.innerHTML += `${strings.premidts[question[0]]}<br>`
+    else main.innerHTML += `<br>${strings.premidts[question[0]]}<br>`
+
+    // Append buttons
+    let buttons = document.createElement("div")
+    buttons.classList.add("buttons")
+    main.appendChild(buttons)
+    question[1].forEach((action, index, array) => {
+        if (action.deadend) {
+            buttons.innerHTML += `<a id="action${index}" onclick="deadend('${action.deadend}', ${index}, this)">${strings.premidts[action.text]}</a>`
+        } /*else if (action.followup) {
+            buttons.innerHTML += `a`
+        }*/ else {
+            buttons.innerHTML += `<a id="action${index}" onclick="followup(${number + 1}, ${index}, this)">${strings.premidts[action.text]}</a>`
+        }
+    })
+
+    // Scroll down and continue if needed
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        left: 0,
+        behavior: 'smooth'
+    })
+    if (params.has(number)) document.getElementById(`action${params.get(number)}`).click()
 }
 
-function localise(t) {
-    let langCookie = document.cookie.split("lang=")[1]
-    if (langCookie) langCookie = langCookie.split(";")[0]
-    langCode = langCookie || window.navigator.language || "en"
-    if (t > 1) langCode = window.navigator.language.split("-")[0] || "en"
-    if (t > 2) langCode = "en"
-    if (t > 3) {
-        start(1)
-        return console.error("Loading strings: Aborted.")
-    }
 
-    fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${langCode}.json`)
-        .then((response) => response.json())
-        .then((data) => {
-            strings = data
-            if (!strings) localise(t + 1)
-            document.documentElement.lang = langCode
-            document.querySelectorAll("*[data-i18n]").forEach(e => e.innerHTML = strings[e.dataset.i18n] || e.innerHTML)
-            document.querySelectorAll(".i18n").forEach(e => e.innerHTML = strings[e.innerHTML] || e.innerHTML)
-            yes = strings[yes] || yes
-            no = strings[no] || no
-            start(1)
-        })
-        .catch(() => {
-            console.log("Loading strings: Failed.")
-            localise(t + 1)
-        })
+// Send a deadend response
+function deadend(deadend, index, element) {
+
+    // Stylise main and append deadend
+    if(element?.parentElement) element.parentElement.innerHTML = `> ${element.innerHTML}`
+    main.innerHTML = main.innerHTML.replace("<b>", "").replace("</b>", "")
+    main.innerHTML = `<b>${main.innerHTML}</b><br>${strings.premidts[deadend]}`
+
+    // Add to searchParams
+    if (!params.has(number)) params.append(number, index)
+    window.history.pushState({}, "", url)
+    document.getElementById("reset").style.display = "unset"
+    if (number >= 1) document.getElementById("previousQuestion").style.display = "unset"
 }
 
-function openlangpicker() {
-    let e = document.getElementById("langbutton")
-    let langs = [["en", "English"], ["nl", "Nederlands"], ["de", "Deutsch"], ["fr", "Français"], ["pt", "Português"], ["pl", "Polski"], ["ru", "Русский"], ["tr", "Türkçe"], ["id", "Bahasa Indonesia"], ["ms", "Bahasa Melayu"]]
 
-    let p = document.getElementById("langpopup")
+// Send a followup response
+function followup(followup, index, element) {
+
+    // Stylise main
+    element.parentElement.innerHTML = `> ${element.innerHTML}`
+    main.innerHTML = main.innerHTML.replace("<b>", "").replace("</b>", "")
+    main.innerHTML = `<b>${main.innerHTML}</b>`
+
+    // Add to searchParams
+    if (!params.has(number)) params.append(number, index)
+    window.history.pushState({}, "", url)
+    document.getElementById("reset").style.display = "unset"
+    if (number >= 1) document.getElementById("previousQuestion").style.display = "unset"
+
+    // Start next question
+    if (typeof followup === "number") number = followup || number + 1
+    else number++
+    if (questions[number]) askQuestion()
+    else deadend("noDiagnosis", index, element)
+}
+
+
+
+// Open the language menu
+function openLanguagePicker() {
+    let languages = [["en", "English"], ["nl", "Nederlands"], ["de", "Deutsch"], ["fr", "Français"], ["pt", "Português"], ["pl", "Polski"], ["ru", "Русский"], ["tr", "Türkçe"], ["id", "Bahasa Indonesia"], ["ms", "Bahasa Melayu"]]
+
+    let p = document.getElementById("languagePicker")
     p.classList.remove("hidden")
-    document.querySelector(".popupbk").classList.remove("hidden")
-    document.getElementById("langlist").innerHTML = ""
+    document.querySelector(".popupBackground").classList.remove("hidden")
+    document.getElementById("languageList").innerHTML = ""
 
-    langs.forEach((l) => {
-        let b = document.createElement("a")
-        b.id = l[0]
-        if (langCode === l[0]) b.setAttribute("disabled", true)
-        b.innerHTML = l[1]
-        b.setAttribute("onclick", "picklang(this.id)")
-        document.getElementById("langlist").appendChild(b)
+    languages.forEach((language) => {
+        let a = document.createElement("a")
+        a.id = language[0]
+        if (languageCode === language[0]) a.setAttribute("disabled", true)
+        a.innerHTML = language[1]
+        a.setAttribute("onclick", "selectLanguage(this.id)")
+        document.getElementById("languageList").appendChild(a)
     })
 }
 
-function picklang(lang) {
-    document.cookie = `lang=${lang}`
+
+// Select a language and reload
+function selectLanguage(language) {
+    document.cookie = `language=${language}`
     window.location.reload()
 }
 
 
-function cont(a, b) {
-    let e = questions[current]
-    b.parentElement.innerHTML = `> ${b.innerHTML}`
-    main.innerHTML = "<b>" + main.innerHTML + "</b>"
-    if (!params.has(current)) params.append(current, b.id)
-    window.history.pushState({}, "", url)
-    document.getElementById("reset").style.display = "unset"
-    if (current >= 1) document.getElementById("previousQuestion").style.display = "unset"
-    if (a === "next") {
-        current++
-        ask()
-    } else if (a === "s") {
-        main.innerHTML += `<br>${e.s}`
-    } else if (typeof a === "number") {
-        current = a
-        ask()
-    } else {
-        main.innerHTML += `<br>${a}`
-    }
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        left: 0,
-        behavior: 'smooth'
-    })
-}
-
-function ask() {
-    let e = questions[current]
-    if (current === 0) main.innerHTML += `${e.p}<br>`
-    else main.innerHTML += `<br>${e.p}<br>`
-
-    let div = document.createElement("div")
-    div.classList.add("buttons")
-    main.appendChild(div)
-    if (e.b) {
-        e.b.forEach(b => {
-            a = b.a || "next"
-            t = b.t || "Button"
-            div.innerHTML += `<a id='${t}' onclick='cont("${a}", this)'>${t}</a> `
-        })
-    } else {
-        div.innerHTML = `<a id='${yes}' onclick='cont("next", this)'>${yes}</a> <a id='${no}' onclick='cont("s", this)'>${no}</a>`
-    }
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        left: 0,
-        behavior: 'smooth'
-    })
-    if (params.has(current)) {
-        document.getElementById(params.get(current)).click()
-    }
-}
-
+// Go back one question
 function previousQuestion() {
     let ps = []
     for (const [key] of params) ps.push(key)
