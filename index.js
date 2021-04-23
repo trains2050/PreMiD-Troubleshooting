@@ -122,21 +122,39 @@ function followup(followup, index, element) {
 
 // Open the language menu
 function openLanguagePicker() {
-    let languages = [["en", "English"], ["nl", "Nederlands"], ["de", "Deutsch"], ["fr", "Français"], ["pt", "Português"], ["pl", "Polski"], ["ru", "Русский"], ["tr", "Türkçe"], ["bn", "বাংলা"]]
+    let languages = [["en", "English"]]
 
-    let p = document.getElementById("languagePicker")
-    p.classList.remove("hidden")
-    document.querySelector(".popupBackground").classList.remove("hidden")
-    document.getElementById("languageList").innerHTML = ""
+    fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/availableLanguages.json`)
+        .then((response) => { return response.json() })
+        .then((availableLanguages) => {
+            fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/languageNames.json`)
+                .then((response) => { return response.json() })
+                .then((languageNames) => {
+                    availableLanguages.data.sort((a, b) => b.data.words.approved - a.data.words.approved).forEach(e => {
+                        if (e.data.translationProgress > 35) languages.push([e.data.languageId, languageNames[e.data.languageId] || `"${e.data.languageId}"`])
+                    })
 
-    languages.forEach((language) => {
-        let a = document.createElement("a")
-        a.id = language[0]
-        if (languageCode === language[0]) a.setAttribute("disabled", true)
-        a.innerHTML = language[1]
-        a.setAttribute("onclick", "selectLanguage(this.id)")
-        document.getElementById("languageList").appendChild(a)
-    })
+                    let p = document.getElementById("languagePicker")
+                    p.classList.remove("hidden")
+                    document.querySelector(".popupBackground").classList.remove("hidden")
+                    document.getElementById("languageList").innerHTML = ""
+
+                    languages.forEach((language) => {
+                        let a = document.createElement("a")
+                        a.id = language[0]
+                        if (languageCode === language[0]) a.setAttribute("disabled", true)
+                        a.innerHTML = language[1]
+                        a.setAttribute("onclick", "selectLanguage(this.id)")
+                        document.getElementById("languageList").appendChild(a)
+                    })
+                })
+                .catch(() => {
+                    console.log("Loading languages: Failed.")
+                })
+        })
+        .catch(() => {
+            console.log("Loading languages: Failed.")
+        })
 }
 
 
