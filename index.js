@@ -85,7 +85,7 @@ function askQuestion() {
 function deadend(deadend, index, element) {
 
     // Stylise main and append deadend
-    if(element?.parentElement) element.parentElement.innerHTML = `> ${element.innerHTML}`
+    if (element?.parentElement) element.parentElement.innerHTML = `> ${element.innerHTML}`
     main.innerHTML = main.innerHTML.replace("<b>", "").replace("</b>", "")
     main.innerHTML = `<b>${main.innerHTML}</b><br>${strings.premidts[deadend]}`
 
