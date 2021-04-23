@@ -1,8 +1,0 @@
-pull_request_rules:
-  - name: Merge localisations
-    conditions:
-      - author=QkeleQ10
-      - check-success=GitGuardian Security Checks
-    actions:
-      merge:
-        method: squash
