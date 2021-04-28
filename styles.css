@@ -16,6 +16,13 @@ header {
     gap: 5px;
 }
 
+footer {
+    position: fixed;
+    bottom: 0px;
+    font-size: small;
+    margin: 15px 0;
+}
+
 h1 {
     margin: 0;
     font-size: x-large;
