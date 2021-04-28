@@ -82,7 +82,6 @@ i {
     padding: 20px;
     box-shadow: 0 0 5px var(--shadow);
     border-radius: 6px;
-    width: fit-content;
 }
 
 .popupBackground {
@@ -106,20 +105,21 @@ i {
 
 input {
     background: none;
-    color: white;
     font-family: "Fira Code", monospace;
     font-size: large;
     border: none;
     border-radius: 0;
-    border-bottom: 1px solid #7289da;
+    color: #585e75;
+    border-bottom: 1px solid #585e75;
     padding: 0;
     width: 100%;
-    transition: border 0.25s;
+    transition: border 0.25s, color 0.25s;
 }
 
 input:hover, input:focus {
     outline: none;
-    border-bottom: 1px solid #bec7e9;
+    color: #7289da;
+    border-bottom: 1px solid #7289da;
 }
 
 .hidden {
