@@ -46,11 +46,16 @@
 
     <!-- Popups -->
     <div class="popupBackground hidden"
-        onclick="this.classList.add('hidden'); document.getElementsByClassName('popup')[0].classList.add('hidden')">
+        onclick="this.classList.add('hidden'); document.querySelectorAll('.popup').forEach(e=>e.classList.add('hidden'))">
     </div>
     <div id="languagePicker" class="popup hidden">
         <h2 class="i18n">Select a language</h2>
         <div id="languageList"></div>
+    </div>
+    <div id="resultCopier" class="popup hidden">
+        <h2 class="i18n">Copied this result</h2>
+        <p class="copiedDesc">You can now paste the result inside your message to the #support channel on our <a href='https://discord.premid.app'>Discord server</a>.</p>
+        <input type="text" title="Copied text" id="textToCopy" readonly></input>
     </div>
 
 </body>

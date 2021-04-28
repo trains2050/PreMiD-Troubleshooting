@@ -87,7 +87,7 @@ function deadend(deadend, index, element) {
     // Stylise main and append deadend
     if (element?.parentElement) element.parentElement.innerHTML = `> ${element.innerHTML}`
     main.innerHTML = main.innerHTML.replace("<b>", "").replace("</b>", "")
-    main.innerHTML = `<b>${main.innerHTML}</b><br>${strings.premidts[deadend]}`
+    main.innerHTML = `<b>${main.innerHTML}</b><br>${strings.premidts[deadend]}<br><br>${(strings.copyTease || "<a onclick='copy(%deadend%)'>Copy result</a>").replace("%deadend%", `"${deadend}"`)}`
 
     // Add to searchParams
     if (!params.has(number)) params.append(number, index)
@@ -155,6 +155,18 @@ function openLanguagePicker() {
         .catch(() => {
             console.log("Loading languages: Failed.")
         })
+}
+
+
+// Open the copy menu
+function copy(deadend) {
+    document.getElementById("resultCopier").classList.remove("hidden")
+    document.querySelector(".popupBackground").classList.remove("hidden")
+    let e = document.getElementById("textToCopy")
+    e.value = document.location.href
+    if (deadend) e.value += ` (result: ${deadend})`
+    e.select()
+    document.execCommand('copy')
 }
 
 

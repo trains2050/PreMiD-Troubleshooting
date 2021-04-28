@@ -34,7 +34,6 @@ p {
     display: grid;
     grid-auto-flow: column;
     gap: 20px;
-    
 }
 
 .buttons {
@@ -83,6 +82,7 @@ i {
     padding: 20px;
     box-shadow: 0 0 5px var(--shadow);
     border-radius: 6px;
+    width: fit-content;
 }
 
 .popupBackground {
@@ -102,6 +102,24 @@ i {
 #languageList>*::before {
     color: white;
     content: "> ";
+}
+
+input {
+    background: none;
+    color: white;
+    font-family: "Fira Code", monospace;
+    font-size: large;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid #7289da;
+    padding: 0;
+    width: 100%;
+    transition: border 0.25s;
+}
+
+input:hover, input:focus {
+    outline: none;
+    border-bottom: 1px solid #bec7e9;
 }
 
 .hidden {
