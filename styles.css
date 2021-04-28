@@ -4,7 +4,7 @@ body {
     font-family: "Fira Code", monospace;
     font-size: larger;
     color: #ffffffe6;
-    margin: 40px;
+    margin: 40px 40px 50px;
 }
 
 header {
@@ -16,9 +16,14 @@ header {
     gap: 5px;
 }
 
+main {
+    background-color: #111218;
+}
+
 footer {
     position: fixed;
     bottom: 0px;
+    z-index: -1;
     font-size: small;
     margin: 15px 0;
 }
