@@ -23,6 +23,7 @@ fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${
         document.documentElement.lang = languageCode
         document.querySelectorAll("*[data-i18n]").forEach(e => e.innerHTML = strings[e.dataset.i18n] || e.innerHTML)
         document.querySelectorAll(".i18n").forEach(e => e.innerHTML = strings[e.innerHTML] || e.innerHTML)
+        console.log(strings)
 
 
         // Fetch questions
