@@ -170,6 +170,13 @@ function copy(deadend) {
 }
 
 
+// Open the information menu
+function information() {
+    document.getElementById("information").classList.remove("hidden")
+    document.querySelector(".popupBackground").classList.remove("hidden")
+}
+
+
 // Select a language and reload
 function selectLanguage(language) {
     document.cookie = `language=${language}`
