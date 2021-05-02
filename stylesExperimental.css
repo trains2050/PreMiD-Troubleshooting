@@ -1,0 +1,149 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap");
+:root {
+    --txt: #363636;
+    --txtBlur: #585858;
+    --bk: #F7F7F7;
+    --bk2: ##FFFFFF;
+    --accent: #7289da;
+    --accentBlur: #818DB8;
+    --button: #D8D8D860;
+    --shadow: #AAAAAA60;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --txt: #EEEEEE;
+        --txtBlur: ##BEBEBE;
+        --bk: #2B2B2B;
+        --bk2: #303030;
+        --accent: #899FEE;
+        --accentBlur: #9DA8CE;
+        --button: #3F3F3F60;
+        --shadow: #05050560;
+    }
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    background: var(--bk);
+    font-family: 'Montserrat', arial, sans-serif;
+    font-weight: 500;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--txt);
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+}
+
+header {
+    margin: 30px min(2vw, 50px) 10px;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+section {
+    margin: 20px min(2vw, 50px) 10px;
+    padding: 25px 20px 10px;
+}
+
+section>p {
+    font-size: 40px;
+    color: var(--txt);
+}
+
+section>.buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+section>.buttons>a {
+    font-size: 30px;
+    color: var(--accent);
+    cursor: pointer;
+}
+
+section.blur {
+    cursor: default;
+}
+
+section.blur>p {
+    font-size: 30px;
+    color: var(--txtBlur);
+}
+
+section.blur>b {
+    font-size: 22.5px;
+    color: var(--accentBlur);
+}
+
+button {
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    border: none;
+    background: var(--button);
+    color: var(--accent);
+    cursor: pointer;
+    font-family: 'Montserrat', arial, sans-serif;
+    padding: 10px 15px;
+    margin: 10px 0 0;
+    border-radius: 6px;
+    box-shadow: none;
+    transition: box-shadow 0.2s, border 0.2s;
+}
+
+button:hover {
+    box-shadow: inset 0 0 0 3px var(--shadow);
+    outline: none;
+}
+
+button:focus {
+    box-shadow: inset 0 0 0 3px #93d996b2;
+    outline: none;
+}
+
+button[disabled], button:not([onclick]) {
+    color: var(--shadow);
+    box-shadow: none;
+    cursor: default;
+}
+
+#siteLogos {
+    padding: 0 20px;
+    display: flex;
+}
+
+#mainSiteLogo {
+    z-index: 1;
+    height: 20px;
+    position: fixed;
+    left: min(2vw, 50px);
+    cursor: pointer;
+    transition: transform 0.25s;
+}
+
+#mainSiteLogo:hover, #mainSiteLogo:focus {
+    transform: scale(2) translate(5px, 5px);
+}
+
+#mainSiteLogo:hover+#currentSiteLogo, #mainSiteLogo:focus+#currentSiteLogo {
+    transform: scale(0.5) translate(10px, 10px);
+}
+
+#currentSiteLogo {
+    height: 50px;
+    transition: transform 0.25s;
+}
