@@ -18,6 +18,19 @@ document.querySelectorAll("section").forEach(e => {
     })
 })
 
+document.onwheel = function zoom(event) {
+    let focused = document.querySelector("section:not(.blur)")
+    if (event.deltaY > 0 && focused.nextElementSibling) {
+        focused.classList.add("blur")
+        focused.nextElementSibling.classList.remove("blur")
+        focused.nextElementSibling.scrollIntoView({ block: "center", behavior: "smooth" })
+    } else if (event.deltaY < 0 && focused.previousElementSibling) {
+        focused.classList.add("blur")
+        focused.previousElementSibling.classList.remove("blur")
+        focused.previousElementSibling.scrollIntoView({ block: "center", behavior: "smooth" })
+    }
+}
+
 
 
 // Fetch strings

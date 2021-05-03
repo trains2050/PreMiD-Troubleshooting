@@ -3,7 +3,8 @@
     --txt: #363636;
     --txtBlur: #585858;
     --bk: #F7F7F7;
-    --bk2: ##FFFFFF;
+    --bkTransparent: #F7F7F7c2;
+    --bk2: #FFFFFF;
     --accent: #7289da;
     --accentBlur: #818DB8;
     --button: #D8D8D860;
@@ -13,8 +14,9 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --txt: #EEEEEE;
-        --txtBlur: ##BEBEBE;
+        --txtBlur: #BEBEBE;
         --bk: #2B2B2B;
+        --bkTransparent: #2b2b2bc2;
         --bk2: #303030;
         --accent: #899FEE;
         --accentBlur: #9DA8CE;
@@ -45,11 +47,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 header {
-    margin: 30px min(2vw, 50px) 10px;
+    position: fixed;
+    width: calc(100vw - min(4vw, 100px));
+    padding: 30px min(2vw, 50px) 20px;
     display: grid;
     grid-auto-flow: column;
-    justify-content: space-between;
+    justify-content: end;
     align-content: space-between;
+    box-shadow: 0 0 8px 0 var(--shadow);
+    background: var(--bkTransparent);
+}
+
+section:first-of-type {
+    margin-top: 50vh;
 }
 
 section:last-of-type {
@@ -64,17 +74,24 @@ section {
 section>p {
     font-size: 40px;
     color: var(--txt);
+    transition: font-size 0.25s;
 }
 
 section>.buttons {
     display: flex;
     flex-direction: column;
+    color: var(--accent);
 }
 
-section>.buttons>a {
+section>.buttons>a, section:not(.blur)>b {
     font-size: 30px;
-    color: var(--accent);
     cursor: pointer;
+    transition: font-size 0.25s;
+}
+
+section.blur>.buttons>a {
+    font-size: 22.5px;
+    transition: font-size 0.25s;
 }
 
 section.blur {
@@ -83,12 +100,13 @@ section.blur {
 
 section.blur>p {
     font-size: 30px;
-    color: var(--txtBlur);
+    color: var(--txt);
 }
 
-section.blur>b {
+section>b {
     font-size: 22.5px;
     color: var(--accentBlur);
+    transition: font-size 0.25s;
 }
 
 button {
@@ -150,5 +168,7 @@ button[disabled], button:not([onclick]) {
 
 #currentSiteLogo {
     height: 50px;
+    position: fixed;
+    left: calc(min(2vw, 50px) + 20px);
     transition: transform 0.25s;
 }
