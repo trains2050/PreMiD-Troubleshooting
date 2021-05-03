@@ -8,7 +8,16 @@ let languageCookie = document.cookie.split("language=")[1]
 if (languageCookie) languageCookie = languageCookie.split(";")[0]
 languageCode = languageCookie || window.navigator.language
 
-document.querySelector("section:not(.blur)").scrollIntoView({ block: "center" })
+document.querySelector("section:not(.blur)").scrollIntoView({ block: "center", behavior: "smooth" })
+
+document.querySelectorAll("section").forEach(e => {
+    e.addEventListener("click", function () {
+        document.querySelector("section:not(.blur)").classList.add("blur")
+        e.classList.remove("blur")
+        e.scrollIntoView({ block: "center", behavior: "smooth" })
+    })
+})
+
 
 
 // Fetch strings
