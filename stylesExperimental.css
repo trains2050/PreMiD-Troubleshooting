@@ -51,6 +51,10 @@ header {
     align-content: space-between;
 }
 
+section:not(.blur) {
+    margin-bottom: 50vh;
+}
+
 section {
     margin: 20px min(2vw, 50px) 10px;
     padding: 25px 20px 10px;

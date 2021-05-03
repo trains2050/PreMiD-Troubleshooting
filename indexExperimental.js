@@ -8,9 +8,11 @@ let languageCookie = document.cookie.split("language=")[1]
 if (languageCookie) languageCookie = languageCookie.split(";")[0]
 languageCode = languageCookie || window.navigator.language
 
+document.querySelector("section:not(.blur)").scrollIntoView({ block: "center" })
+
 
 // Fetch strings
-fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${languageCode || "en"}.json`)
+/*fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${languageCode || "en"}.json`)
     .then((response) => response.json())
     .then((data) => {
 
@@ -45,7 +47,7 @@ fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${
         setTimeout(() => window.location.reload(), 1000)
         console.info("Error:")
         console.error(e)
-    })
+    })*/
 
 
 
