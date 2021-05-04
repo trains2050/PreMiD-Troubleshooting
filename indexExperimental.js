@@ -31,6 +31,11 @@ document.onwheel = function zoom(event) {
     }
 }
 
+setInterval(() => {
+    let focused = document.querySelector("section:not(.blur)")
+    if (focused) focused.scrollIntoView({ block: "center", behavior: "smooth" })
+}, 2000)
+
 
 
 // Fetch strings
