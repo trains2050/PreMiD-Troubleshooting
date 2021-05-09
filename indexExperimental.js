@@ -212,7 +212,7 @@ function previousQuestion() {
     params.delete(ps[ps.length - 1])
     window.history.pushState({}, "", url)
     main.innerHTML = ""
-    if (number > 0) number--
+    number = 0
     askQuestion()
     hide(document.getElementById("previousQuestion"))
     if (number === 0) hide(document.getElementById("reset"))

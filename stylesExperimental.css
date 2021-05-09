@@ -115,6 +115,10 @@ section.deadend>p {
     color: var(--txt);
 }
 
+section.startstate {
+    transition: none;
+}
+
 button {
     display: grid;
     grid-auto-flow: column;
