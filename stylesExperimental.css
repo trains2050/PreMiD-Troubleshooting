@@ -116,6 +116,7 @@ section.deadend>p {
 }
 
 section.startstate {
+    margin-top: 50vh;
     transition: none;
 }
 
@@ -213,6 +214,10 @@ a:hover, a:focus {
     right: 0;
     bottom: 0;
     background-color: #111218e6;
+}
+
+#languageList {
+    display: grid;
 }
 
 input {

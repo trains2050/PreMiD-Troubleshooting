@@ -160,17 +160,17 @@ function openLanguagePicker() {
                     show(document.querySelector(".popupBackground"))
                     document.getElementById("languageList").innerHTML = ""
 
-                    languages.forEach((language) => {
-                        let a = document.createElement("a")
-                        a.id = language[0]
-                        if (languageCode === language[0]) a.setAttribute("disabled", true)
-                        a.innerHTML = language[1]
-                        a.setAttribute("onclick", "selectLanguage(this.id)")
-                        document.getElementById("languageList").appendChild(a)
+                    languages.forEach((l) => {
+                        let b = document.createElement("button")
+                        b.id = l[0]
+                        if (languageCode === l[0]) b.setAttribute("disabled", true)
+                        b.innerHTML = l[1]
+                        b.setAttribute("onclick", "picklang(this.id)")
+                        document.getElementById("languageList").appendChild(b)
                     })
                 })
-                .catch(() => {
-                    console.log("Loading languages: Failed.")
+                .catch((e) => {
+                    console.log(e)
                 })
         })
         .catch(() => {
