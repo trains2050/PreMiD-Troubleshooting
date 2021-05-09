@@ -165,7 +165,7 @@ function openLanguagePicker() {
                         b.id = l[0]
                         if (languageCode === l[0]) b.setAttribute("disabled", true)
                         b.innerHTML = l[1]
-                        b.setAttribute("onclick", "picklang(this.id)")
+                        b.setAttribute("onclick", "selectLanguage(this.id)")
                         document.getElementById("languageList").appendChild(b)
                     })
                 })
