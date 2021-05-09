@@ -214,6 +214,7 @@ a:hover, a:focus {
     right: 0;
     bottom: 0;
     background-color: #111218e6;
+    backdrop-filter: blur(5px);
 }
 
 #languageList {
