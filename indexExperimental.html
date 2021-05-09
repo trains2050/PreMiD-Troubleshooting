@@ -30,13 +30,15 @@
 
 </head>
 
-<body>
+<body onresize="correctSectionMargins()">
 
     <header>
         <img id="mainSiteLogo" src="logoMain.svg" title="Portfolio site"
             onclick="window.open('https:/\/qkeleq10.github.io')">
         <img id="currentSiteLogo" src="logoCurrent.png" title="PreMiD Troubleshooting">
         <div class="grid-columns">
+            <button id="previousQuestion" class="hidden" onclick="previousQuestion()" class="i18n">Previous</button>
+            <button id="reset" class="hidden" onclick="reset()" class="i18n">Start over</button>
             <button id="langbutton" onclick="openLanguagePicker()">
                 <i data-feather="globe"></i><span class="i18n">Language</span>
             </button>
@@ -44,49 +46,18 @@
     </header>
 
     <main id="main">
-        <section class="blur">
-            <p>Prompt</p>
-            <b>Response</b>
+        <section class="deadend">
+            <p>Loading troubleshooter...</p>
         </section>
-        <section class="blur">
-            <p>Prompt</p>
-            <b>Response</b>
-        </section>
-        <section class="blur">
-            <p>Prompt</p>
-            <b>Response</b>
-        </section>
-        <section class="blur">
-            <p>Prompt</p>
-            <b>Response</b>
-        </section>
-        <section class="blur">
-            <p>Prompt</p>
-            <b>Response</b>
-        </section>
-        <section class="blur">
-            <p>Prompt</p>
-            <b>Response</b>
-        </section>
-        <section class="blur">
-            <p>Prompt</p>
-            <b>Response</b>
-        </section>
-
-        <section>
-            <p>Prompt</p>
-            <div class="buttons">
-                <a>Button</a>
-                <a>Button</a>
-            </div>
+        <section class="deadend blur">
+            <p>If this is taking too long, let me know on Discord (QkeleQ10#8482).</p>
         </section>
     </main>
 
-    <!--<footer>© 2021 QkeleQ10 · <a onclick="information()" class="i18n">Information</a></footer>
+    <footer>© 2021 QkeleQ10 · <a onclick="information()" class="i18n">Information</a></footer>
 
-    < !-- Popups -- >
-    <div class="popupBackground hidden"
-        onclick="this.classList.add('hidden'); document.querySelectorAll('.popup').forEach(e=>e.classList.add('hidden'))">
+    <!-- Popups -->
+    <div class="popupBackground hidden" onclick="hide(this); document.querySelectorAll('.popup').forEach(e=>hide(e))">
     </div>
     <div id="languagePicker" class="popup hidden">
         <h2 class="i18n">Select a language</h2>
@@ -103,10 +74,10 @@
         <p data-i18n="infoDesc">This tool was built for the PreMiD community by QkeleQ10#8482.<br>It is acknowledged by
             but not owned by or affiliated with PreMiD.</p>
         <br>
-        <a href="https://qkeleq10.github.io" class="i18n">Contact and more</a> · <a href="https://premid.app"
-            class="i18n">PreMiD website</a> · <a href="https://discord.premid.app" class="i18n">PreMiD Discord
-            server</a>
-    </div>-->
+        <p><a href="https://qkeleq10.github.io" class="i18n">Contact and more</a> · <a href="https://premid.app"
+                class="i18n">PreMiD website</a> · <a href="https://discord.premid.app" class="i18n">PreMiD Discord
+                server</a></p>
+    </div>
 
     <script>
         feather.replace()

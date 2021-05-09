@@ -8,45 +8,33 @@ let languageCookie = document.cookie.split("language=")[1]
 if (languageCookie) languageCookie = languageCookie.split(";")[0]
 languageCode = languageCookie || window.navigator.language
 
-document.querySelector("section:not(.blur)").scrollIntoView({ block: "center", behavior: "smooth" })
-
-document.querySelectorAll("section").forEach(e => {
-    e.addEventListener("click", function () {
-        document.querySelector("section:not(.blur)").classList.add("blur")
-        e.classList.remove("blur")
-        e.scrollIntoView({ block: "center", behavior: "smooth" })
+function correctSectionMargins() {
+    let first = document.querySelector("section:first-of-type"), last = document.querySelector("section:last-of-type")
+    first.style.marginTop = `calc(50vh - ${first.clientHeight / 2}px)`
+    last.style.marginBottom = `calc(50vh - ${last.clientHeight / 2}px)`
+    document.querySelectorAll("section").forEach(e => {
+        if (e != first) {
+            e.style.marginTop = ""
+        }
+        if (e != last) {
+            e.style.marginBottom = ""
+        }
     })
-})
-
-document.onwheel = function zoom(event) {
-    let focused = document.querySelector("section:not(.blur)")
-    if (event.deltaY > 0 && focused.nextElementSibling) {
-        focused.classList.add("blur")
-        focused.nextElementSibling.classList.remove("blur")
-        focused.nextElementSibling.scrollIntoView({ block: "center", behavior: "smooth" })
-    } else if (event.deltaY < 0 && focused.previousElementSibling) {
-        focused.classList.add("blur")
-        focused.previousElementSibling.classList.remove("blur")
-        focused.previousElementSibling.scrollIntoView({ block: "center", behavior: "smooth" })
-    }
+    setTimeout(() => document.querySelector("section:not(.blur)").scrollIntoView({ block: "center", behavior: "smooth" }), 250)
 }
 
-setInterval(() => {
-    let focused = document.querySelector("section:not(.blur)")
-    if (focused) focused.scrollIntoView({ block: "center", behavior: "smooth" })
-}, 2000)
-
+correctSectionMargins()
 
 
 // Fetch strings
-/*fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${languageCode || "en"}.json`)
+fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${languageCode || "en"}.json`)
     .then((response) => response.json())
     .then((data) => {
 
         strings = data
         if (!strings) {
             document.cookie = "language=en"
-            main.innerHTML = "Language not available. Hang on..."
+            main.innerHTML = "<section><p>Language not available. Hang on...</p></section>"
             setTimeout(() => window.location.reload(), 1000)
         }
         document.documentElement.lang = languageCode
@@ -70,11 +58,12 @@ setInterval(() => {
     })
     .catch(e => {
         document.cookie = "language=en"
-        main.innerHTML = "Language not available. Hang on..."
+        main.innerHTML = "<section><p>Language not available. Hang on...</p></section>"
+        correctSectionMargins()
         setTimeout(() => window.location.reload(), 1000)
         console.info("Error:")
         console.error(e)
-    })*/
+    })
 
 
 
@@ -82,14 +71,11 @@ setInterval(() => {
 function askQuestion() {
     let question = questions[number]
 
-    // Add spacing and append question
-    if (number == 0) main.innerHTML += `${strings.premidts[question[0]]}<br>`
-    else main.innerHTML += `<br>${strings.premidts[question[0]]}<br>`
+    // Append question
+    main.innerHTML += `<section><p>${strings.premidts[question[0]]}</p><div class="buttons"></div></section>`
 
     // Append buttons
-    let buttons = document.createElement("div")
-    buttons.classList.add("buttons")
-    main.appendChild(buttons)
+    let buttons = document.querySelector("div.buttons")
     question[1].forEach((action, index, array) => {
         if (action.deadend) {
             buttons.innerHTML += `<a id="action${index}" onclick="deadend('${action.deadend}', ${index}, this)">${strings.premidts[action.text]}</a>`
@@ -101,44 +87,50 @@ function askQuestion() {
     })
 
     // Scroll down and continue if needed
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        left: 0,
-        behavior: 'smooth'
-    })
     if (params.has(number)) document.getElementById(`action${params.get(number)}`).click()
+
+    // Correct section margins
+    correctSectionMargins()
 }
 
 
 // Send a deadend response
 function deadend(deadend, index, element) {
 
-    // Stylise main and append deadend
-    if (element?.parentElement) element.parentElement.innerHTML = `> ${element.innerHTML}`
-    main.innerHTML = main.innerHTML.replace("<b>", "").replace("</b>", "")
-    main.innerHTML = `<b>${main.innerHTML}</b><br>${strings.premidts[deadend]}<br><br>${(strings.copyTease || "<a onclick='copy(%deadend%)'>Copy result</a>").replace("%deadend%", `"${deadend}"`)}`
+    // Unfocus
+    if (deadend !== "noDiagnosis") {
+        element.parentElement.parentElement.classList.add("blur")
+        element.parentElement.outerHTML = `<!--${element.parentElement.outerHTML}--><b>${element.innerHTML}</b>`
+    }
+
+    // Append deadend
+    main.innerHTML += `<section class="deadend"><p>${strings.premidts[deadend]}</p></section><section class="deadend blur"><p>${(strings.copyTease || "<a onclick='copy(%deadend%)'>Copy result</a>").replace("%deadend%", `"${deadend}"`)}</p></section>`
 
     // Add to searchParams
-    if (!params.has(number)) params.append(number, index)
-    window.history.pushState({}, "", url)
-    document.getElementById("reset").style.display = "unset"
-    if (number >= 1) document.getElementById("previousQuestion").style.display = "unset"
+    if (deadend !== "noDiagnosis") {
+        if (!params.has(number)) params.append(number, index)
+        window.history.pushState({}, "", url)
+        show(document.getElementById("previousQuestion"))
+        if (number >= 1) show(document.getElementById("reset"))
+    }
+
+    // Correct section margins
+    correctSectionMargins()
 }
 
 
 // Send a followup response
 function followup(followup, index, element) {
 
-    // Stylise main
-    element.parentElement.innerHTML = `> ${element.innerHTML}`
-    main.innerHTML = main.innerHTML.replace("<b>", "").replace("</b>", "")
-    main.innerHTML = `<b>${main.innerHTML}</b>`
+    // Unfocus
+    element.parentElement.parentElement.classList.add("blur")
+    element.parentElement.outerHTML = `<!--${element.parentElement.outerHTML}--><b>${element.innerHTML}</b>`
 
     // Add to searchParams
     if (!params.has(number)) params.append(number, index)
     window.history.pushState({}, "", url)
-    document.getElementById("reset").style.display = "unset"
-    if (number >= 1) document.getElementById("previousQuestion").style.display = "unset"
+    show(document.getElementById("previousQuestion"))
+    if (number >= 1) show(document.getElementById("reset"))
 
     // Start next question
     if (typeof followup === "number") number = followup || number + 1
@@ -164,8 +156,8 @@ function openLanguagePicker() {
                     })
 
                     let p = document.getElementById("languagePicker")
-                    p.classList.remove("hidden")
-                    document.querySelector(".popupBackground").classList.remove("hidden")
+                    show(p)
+                    show(document.querySelector(".popupBackground"))
                     document.getElementById("languageList").innerHTML = ""
 
                     languages.forEach((language) => {
@@ -189,8 +181,8 @@ function openLanguagePicker() {
 
 // Open the copy menu
 function copy(deadend) {
-    document.getElementById("resultCopier").classList.remove("hidden")
-    document.querySelector(".popupBackground").classList.remove("hidden")
+    show(document.getElementById("resultCopier"))
+    show(document.querySelector(".popupBackground"))
     let e = document.getElementById("textToCopy")
     e.value = document.location.href
     if (deadend) e.value += ` (result: ${deadend})`
@@ -201,8 +193,8 @@ function copy(deadend) {
 
 // Open the information menu
 function information() {
-    document.getElementById("information").classList.remove("hidden")
-    document.querySelector(".popupBackground").classList.remove("hidden")
+    show(document.getElementById("information"))
+    show(document.querySelector(".popupBackground"))
 }
 
 
@@ -219,5 +211,29 @@ function previousQuestion() {
     for (const [key] of params) ps.push(key)
     params.delete(ps[ps.length - 1])
     window.history.pushState({}, "", url)
-    window.location.reload()
+    main.innerHTML = ""
+    if (number > 0) number--
+    askQuestion()
+    hide(document.getElementById("previousQuestion"))
+    if (number === 0) hide(document.getElementById("reset"))
+}
+
+function reset() {
+    window.location.href = window.location.href.split('?')[0]
+}
+
+function show(element) {
+    element.classList.add("hiding")
+    element.classList.remove("hidden")
+    setTimeout(() => {
+        element.classList.remove("hiding")
+    }, 250)
+}
+
+function hide(element) {
+    element.classList.add("hiding")
+    setTimeout(() => {
+        element.classList.add("hidden")
+        element.classList.remove("hiding")
+    }, 250)
 }

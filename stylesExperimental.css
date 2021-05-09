@@ -7,6 +7,7 @@
     --bk2: #FFFFFF;
     --accent: #7289da;
     --accentBlur: #818DB8;
+    --accentHover: #a5b2dd;
     --button: #D8D8D860;
     --shadow: #AAAAAA60;
 }
@@ -20,6 +21,7 @@
         --bk2: #303030;
         --accent: #899FEE;
         --accentBlur: #9DA8CE;
+        --accentHover: #bec7e9;
         --button: #3F3F3F60;
         --shadow: #05050560;
     }
@@ -27,7 +29,13 @@
 
 * {
     margin: 0;
-    overflow: hidden;
+    word-break: break-word;
+    opacity: 1;
+    transition: opacity 0.25s;
+}
+
+p {
+    color: var(--txt);
 }
 
 body {
@@ -48,6 +56,7 @@ h1, h2, h3, h4, h5, h6 {
 
 header {
     position: fixed;
+    top: 0;
     width: calc(100vw - min(4vw, 100px));
     padding: 30px min(2vw, 50px) 20px;
     display: grid;
@@ -58,17 +67,19 @@ header {
     background: var(--bkTransparent);
 }
 
-section:first-of-type {
-    margin-top: 50vh;
-}
-
-section:last-of-type {
-    margin-bottom: 50vh;
+footer {
+    position: fixed;
+    bottom: 0px;
+    z-index: -1;
+    font-size: small;
+    margin: 20px min(2vw, 50px) 10px;
+    color: var(--txt);
 }
 
 section {
     margin: 20px min(2vw, 50px) 10px;
     padding: 25px 20px 10px;
+    transition: margin 0.25s;
 }
 
 section>p {
@@ -83,30 +94,25 @@ section>.buttons {
     color: var(--accent);
 }
 
-section>.buttons>a, section:not(.blur)>b {
+section>.buttons>a {
     font-size: 30px;
     cursor: pointer;
-    transition: font-size 0.25s;
-}
-
-section.blur>.buttons>a {
-    font-size: 22.5px;
-    transition: font-size 0.25s;
-}
-
-section.blur {
-    cursor: default;
+    transition: font-size 0.25s, color 0.25s;
 }
 
 section.blur>p {
     font-size: 30px;
-    color: var(--txt);
+    color: var(--txtBlur);
 }
 
 section>b {
     font-size: 22.5px;
     color: var(--accentBlur);
     transition: font-size 0.25s;
+}
+
+section.deadend>p {
+    color: var(--txt);
 }
 
 button {
@@ -125,7 +131,7 @@ button {
     margin: 10px 0 0;
     border-radius: 6px;
     box-shadow: none;
-    transition: box-shadow 0.2s, border 0.2s;
+    transition: box-shadow 0.2s, border 0.2s, opacity 0.25s;
 }
 
 button:hover {
@@ -136,12 +142,6 @@ button:hover {
 button:focus {
     box-shadow: inset 0 0 0 3px #7289dab2;
     outline: none;
-}
-
-button[disabled], button:not([onclick]) {
-    color: var(--shadow);
-    box-shadow: none;
-    cursor: default;
 }
 
 #siteLogos {
@@ -171,4 +171,69 @@ button[disabled], button:not([onclick]) {
     position: fixed;
     left: calc(min(2vw, 50px) + 20px);
     transition: transform 0.25s;
+}
+
+.grid-columns {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 10px;
+}
+
+a {
+    color: var(--accent);
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.25s;
+}
+
+a:hover, a:focus {
+    color: var(--accentHover)
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--bk2);
+    padding: 20px;
+    box-shadow: 0 0 5px var(--shadow);
+    border-radius: 6px;
+}
+
+.popupBackground {
+    position: fixed;
+    size: 100vh 100vw;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #111218e6;
+}
+
+input {
+    background: none;
+    font-family: 'Montserrat', arial, sans-serif;
+    border: none;
+    border-radius: 0;
+    color: #585e75;
+    border-bottom: 1px solid #585e75;
+    padding: 0;
+    width: 100%;
+    transition: border 0.25s, color 0.25s;
+}
+
+input:hover, input:focus {
+    outline: none;
+    color: #7289da;
+    border-bottom: 1px solid #7289da;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.hiding {
+    opacity: 0;
 }
