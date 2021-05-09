@@ -215,7 +215,7 @@ function previousQuestion() {
     number = 0
     askQuestion()
     hide(document.getElementById("previousQuestion"))
-    if (number === 0) hide(document.getElementById("reset"))
+    hide(document.getElementById("reset"))
 }
 
 function reset() {
@@ -226,6 +226,7 @@ function show(element) {
     element.classList.add("hiding")
     element.classList.remove("hidden")
     setTimeout(() => {
+        element.classList.remove("hidden")
         element.classList.remove("hiding")
     }, 250)
 }
