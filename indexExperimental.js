@@ -1,7 +1,7 @@
 let url = new URL(document.location)
 let params = url.searchParams
 let main = document.getElementById("main")
-let questions, strings, languageCode, number, availableLanguages
+let questions, strings, languageCode, number, availableLanguages, showTimer, hideTimer
 
 // Set language
 let languageCookie = document.cookie.split("language=")[1]
@@ -87,6 +87,10 @@ function askQuestion() {
 
     // Correct section margins
     correctSectionMargins()
+
+    // Show correct buttons
+    if (number <= 0) hide(document.getElementById("previousQuestion")); else show(document.getElementById("previousQuestion"))
+    if (number <= 1) hide(document.getElementById("reset")); else show(document.getElementById("reset"))
 }
 
 
@@ -106,8 +110,6 @@ function deadend(deadend, index, element) {
     if (deadend !== "noDiagnosis") {
         if (!params.has(number)) params.append(number, index)
         window.history.pushState({}, "", url)
-        show(document.getElementById("previousQuestion"))
-        if (number >= 1) show(document.getElementById("reset"))
     }
 
     // Correct section margins
@@ -125,8 +127,6 @@ function followup(followup, index, element) {
     // Add to searchParams
     if (!params.has(number)) params.append(number, index)
     window.history.pushState({}, "", url)
-    show(document.getElementById("previousQuestion"))
-    if (number >= 1) show(document.getElementById("reset"))
 
     // Start next question
     if (typeof followup === "number") number = followup || number + 1
@@ -210,26 +210,35 @@ function previousQuestion() {
     main.innerHTML = ""
     number = 0
     askQuestion()
-    hide(document.getElementById("previousQuestion"))
-    hide(document.getElementById("reset"))
 }
 
 function reset() {
-    window.location.href = window.location.href.split('?')[0]
+    let ps = []
+    for (const [key] of params) ps.push(key)
+    ps.forEach(p => params.delete(p))
+    window.history.pushState({}, "", url)
+    main.innerHTML = ""
+    number = 0
+    askQuestion()
 }
 
 function show(element) {
+    if (!element.classList.contains("hidden") && !element.classList.contains("hiding")) return
+    if (element.classList.contains("hiding")) element.classList.remove("hiding")
+    clearTimeout(hideTimer)
     element.classList.add("hiding")
     element.classList.remove("hidden")
-    setTimeout(() => {
-        element.classList.remove("hidden")
+    showTimer = setTimeout(() => {
         element.classList.remove("hiding")
     }, 250)
 }
 
 function hide(element) {
+    if (element.classList.contains("hidden")) return
+    if (element.classList.contains("hiding")) element.classList.remove("hiding")
+    clearTimeout(showTimer)
     element.classList.add("hiding")
-    setTimeout(() => {
+    hideTimer = setTimeout(() => {
         element.classList.add("hidden")
         element.classList.remove("hiding")
     }, 250)
