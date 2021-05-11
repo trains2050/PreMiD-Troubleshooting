@@ -8,22 +8,8 @@ let languageCookie = document.cookie.split("language=")[1]
 if (languageCookie) languageCookie = languageCookie.split(";")[0]
 languageCode = languageCookie || window.navigator.language
 
-function correctSectionMargins() {
-    let first = document.querySelector("section:first-of-type"), last = document.querySelector("section:last-of-type")
-    first.style.marginTop = `calc(50vh - ${first.clientHeight / 2}px)`
-    last.style.marginBottom = `calc(50vh - ${last.clientHeight / 2}px)`
-    document.querySelectorAll("section").forEach(e => {
-        if (e != first) {
-            e.style.marginTop = ""
-        }
-        if (e != last) {
-            e.style.marginBottom = ""
-        }
-    })
-    setTimeout(() => document.querySelector("section:not(.blur)").scrollIntoView({ block: "center", behavior: "smooth" }), 250)
-}
-
 correctSectionMargins()
+correctTheme()
 
 
 // Fetch strings
@@ -176,14 +162,9 @@ function openLanguagePicker() {
 
 
 // Open the copy menu
-function copy(deadend) {
-    show(document.getElementById("resultCopier"))
+function openThemePicker() {
+    show(document.getElementById("themePicker"))
     show(document.querySelector(".popupBackground"))
-    let e = document.getElementById("textToCopy")
-    e.value = document.location.href
-    if (deadend) e.value += ` (result: ${deadend})`
-    e.select()
-    document.execCommand('copy')
 }
 
 
@@ -193,6 +174,12 @@ function information() {
     show(document.querySelector(".popupBackground"))
 }
 
+
+// Open the theme menu
+function information() {
+    show(document.getElementById("information"))
+    show(document.querySelector(".popupBackground"))
+}
 
 // Select a language and reload
 function selectLanguage(language) {
@@ -212,6 +199,7 @@ function previousQuestion() {
     askQuestion()
 }
 
+// Restart everything
 function reset() {
     let ps = []
     for (const [key] of params) ps.push(key)
@@ -222,6 +210,8 @@ function reset() {
     askQuestion()
 }
 
+
+// Show an element
 function show(element) {
     if (!element.classList.contains("hidden") && !element.classList.contains("hiding")) return
     if (element.classList.contains("hiding")) element.classList.remove("hiding")
@@ -233,6 +223,8 @@ function show(element) {
     }, 250)
 }
 
+
+// Hide an element
 function hide(element) {
     if (element.classList.contains("hidden")) return
     if (element.classList.contains("hiding")) element.classList.remove("hiding")
@@ -242,4 +234,65 @@ function hide(element) {
         element.classList.add("hidden")
         element.classList.remove("hiding")
     }, 250)
+}
+
+// Make theme dark
+function dark() {
+    let s = document.documentElement.style
+    s.setProperty("--txt", "#EEEEEE")
+    s.setProperty("--txtBlur", "#BEBEBE")
+    s.setProperty("--bk", "#2B2B2B")
+    s.setProperty("--bk2", "#303030")
+    s.setProperty("--bkTransparent", "#2b2b2bc2")
+    s.setProperty("--accent", "#899FEE")
+    s.setProperty("--accentBlur", "#9DA8CE")
+    s.setProperty("--accentHover", "#BEC7E9")
+    s.setProperty("--button", "#3F3F3F60")
+    s.setProperty("--shadow", "#05050560")
+}
+
+// Make theme light
+function light() {
+    let s = document.documentElement.style
+    s.setProperty("--txt", "#363636")
+    s.setProperty("--txtBlur", "#585858")
+    s.setProperty("--bk", "#F7F7F7")
+    s.setProperty("--bk2", "#FFFFFF")
+    s.setProperty("--bkTransparent", "#F7F7F7C2")
+    s.setProperty("--accent", "#7289DA")
+    s.setProperty("--accentBlur", "#818DB8")
+    s.setProperty("--accentHover", "#A5B2DD")
+    s.setProperty("--button", "#D8D8D860")
+    s.setProperty("--shadow", "#AAAAAA60")
+}
+
+// Set the right theme
+function correctTheme() {
+    hide(document.querySelector(".popupBackground"))
+    document.querySelectorAll(".popup").forEach(e => hide(e))
+    let themeCookie = document.cookie.split("theme=")[1]
+    if (themeCookie) themeCookie = themeCookie.split(";")[0]
+    if (themeCookie === "dark") dark()
+    if (themeCookie === "light") light()
+    if (themeCookie === "auto") {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) dark()
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) light()
+    }
+}
+
+
+// Set the right margins
+function correctSectionMargins() {
+    let first = document.querySelector("section:first-of-type"), last = document.querySelector("section:last-of-type")
+    first.style.marginTop = `calc(50vh - ${first.clientHeight / 2}px)`
+    last.style.marginBottom = `calc(50vh - ${last.clientHeight / 2}px)`
+    document.querySelectorAll("section").forEach(e => {
+        if (e != first) {
+            e.style.marginTop = ""
+        }
+        if (e != last) {
+            e.style.marginBottom = ""
+        }
+    })
+    setTimeout(() => document.querySelector("section:not(.blur)").scrollIntoView({ block: "center", behavior: "smooth" }), 250)
 }

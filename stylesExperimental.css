@@ -1,29 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap");
 :root {
-    --txt: #363636;
-    --txtBlur: #585858;
-    --bk: #F7F7F7;
-    --bkTransparent: #F7F7F7c2;
-    --bk2: #FFFFFF;
-    --accent: #7289da;
-    --accentBlur: #818DB8;
-    --accentHover: #a5b2dd;
-    --button: #D8D8D860;
-    --shadow: #AAAAAA60;
+    --txt: #EEEEEE;
+    --txtBlur: #BEBEBE;
+    --bk: #2B2B2B;
+    --bkTransparent: #2b2b2bc2;
+    --bk2: #303030;
+    --accent: #899FEE;
+    --accentBlur: #9DA8CE;
+    --accentHover: #bec7e9;
+    --button: #3F3F3F60;
+    --shadow: #05050560;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
     :root {
-        --txt: #EEEEEE;
-        --txtBlur: #BEBEBE;
-        --bk: #2B2B2B;
-        --bkTransparent: #2b2b2bc2;
-        --bk2: #303030;
-        --accent: #899FEE;
-        --accentBlur: #9DA8CE;
-        --accentHover: #bec7e9;
-        --button: #3F3F3F60;
-        --shadow: #05050560;
+        --txt: #363636;
+        --txtBlur: #585858;
+        --bk: #F7F7F7;
+        --bkTransparent: #F7F7F7c2;
+        --bk2: #FFFFFF;
+        --accent: #7289da;
+        --accentBlur: #818DB8;
+        --accentHover: #a5b2dd;
+        --button: #D8D8D860;
+        --shadow: #AAAAAA60;
     }
 }
 
@@ -216,7 +216,7 @@ a:hover, a:focus {
     background-color: #111218e6;
 }
 
-#languageList {
+.grid {
     display: grid;
 }
 
