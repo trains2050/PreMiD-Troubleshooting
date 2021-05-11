@@ -115,8 +115,8 @@ section.deadend>p {
     color: var(--txt);
 }
 
-section.startstate {
-    margin-top: 50vh;
+section.startstate:not(.blur) {
+    margin-top: calc(50vh - 42px);
     transition: none;
 }
 

@@ -32,11 +32,7 @@ fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${
     .then((data) => {
 
         strings = data
-        if (!strings) {
-            document.cookie = "language=en"
-            main.innerHTML = "<section><p>Language not available. Hang on...</p></section>"
-            setTimeout(() => window.location.reload(), 1000)
-        }
+        if (!strings) throw "error"
         document.documentElement.lang = languageCode
         document.querySelectorAll("*[data-i18n]").forEach(e => e.innerHTML = strings[e.dataset.i18n] || e.innerHTML)
         document.querySelectorAll(".i18n").forEach(e => e.innerHTML = strings[e.innerHTML] || e.innerHTML)
@@ -58,9 +54,9 @@ fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${
     })
     .catch(e => {
         document.cookie = "language=en"
-        main.innerHTML = "<section><p>Language not available. Hang on...</p></section>"
+        main.innerHTML = `<section class="deadend startstate"><p>Language not available. Switching to English...</p></section><section class="deadend blur startstate"><p>If this is taking too long, let me know on Discord (QkeleQ10#8482).</p></section>`
         correctSectionMargins()
-        setTimeout(() => window.location.reload(), 1000)
+        setTimeout(() => window.location.reload(), 2000)
         console.info("Error:")
         console.error(e)
     })
