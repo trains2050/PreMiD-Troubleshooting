@@ -165,6 +165,13 @@ function openLanguagePicker() {
 function openThemePicker() {
     show(document.getElementById("themePicker"))
     show(document.querySelector(".popupBackground"))
+    let themeCookie = document.cookie.split("theme=")[1]
+    if (themeCookie) themeCookie = themeCookie.split(";")[0]
+    else themeCookie = "auto"
+
+    document.getElementById("themeAuto").disabled = (themeCookie === "auto")
+    document.getElementById("themeDark").disabled = (themeCookie === "dark")
+    document.getElementById("themeLight").disabled = (themeCookie === "light")
 }
 
 

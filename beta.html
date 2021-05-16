@@ -84,9 +84,9 @@
     <div id="themePicker" class="popup hidden">
         <h2 class="i18n">Select a theme</h2>
         <div class="grid">
-            <button class="i18n" onclick="document.cookie = `theme=auto`; correctTheme()">Automatic</button>
-            <button class="i18n" onclick="document.cookie = `theme=light`; correctTheme()">Light</button>
-            <button class="i18n" onclick="document.cookie = `theme=dark`; correctTheme()">Dark</button>
+            <button class="i18n" id="themeAuto" onclick="document.cookie = `theme=auto`; correctTheme()">Automatic</button>
+            <button class="i18n" id="themeLight" onclick="document.cookie = `theme=light`; correctTheme()">Light</button>
+            <button class="i18n" id="themeDark" onclick="document.cookie = `theme=dark`; correctTheme()">Dark</button>
         </div>
     </div>
 
