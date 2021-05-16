@@ -120,6 +120,10 @@ section.startstate:not(.blur) {
     transition: none;
 }
 
+section.startstate>p {
+    color: var(--txtBlur);
+}
+
 button {
     display: grid;
     grid-auto-flow: column;
