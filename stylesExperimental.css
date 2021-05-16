@@ -179,6 +179,7 @@ button:focus {
     height: 50px;
     position: fixed;
     left: calc(min(2vw, 50px) + 20px);
+    cursor: pointer;
     transition: transform 0.25s;
 }
 
