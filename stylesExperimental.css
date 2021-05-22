@@ -3,7 +3,7 @@
     --txt: #EEEEEE;
     --txtBlur: #BEBEBE;
     --bk: #2B2B2B;
-    --bkTransparent: #2b2b2bc2;
+    --bkTransparent: #2b2b2bdc;
     --bk2: #303030;
     --accent: #899FEE;
     --accentBlur: #9DA8CE;
@@ -17,7 +17,7 @@
         --txt: #363636;
         --txtBlur: #585858;
         --bk: #F7F7F7;
-        --bkTransparent: #F7F7F7c2;
+        --bkTransparent: #F7F7F7dc;
         --bk2: #FFFFFF;
         --accent: #7289da;
         --accentBlur: #818DB8;
@@ -79,7 +79,6 @@ footer {
 section {
     margin: 20px min(2vw, 50px) 10px;
     padding: 25px 20px 10px;
-    transition: margin 0.25s;
 }
 
 section>p {

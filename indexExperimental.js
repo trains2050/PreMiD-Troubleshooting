@@ -100,6 +100,10 @@ function deadend(deadend, index, element) {
 
     // Correct section margins
     correctSectionMargins()
+
+    // Show correct buttons
+    if (document.getElementById("previousQuestion").classList.contains("hidden")) show(document.getElementById("previousQuestion"))
+    if (document.getElementById("reset").classList.contains("hidden") && number >= 1) show(document.getElementById("reset"))
 }
 
 
@@ -119,6 +123,10 @@ function followup(followup, index, element) {
     else number++
     if (questions[number]) askQuestion()
     else deadend("noDiagnosis", index, element)
+
+    // Show correct buttons
+    if (number <= 0) hide(document.getElementById("previousQuestion")); else show(document.getElementById("previousQuestion"))
+    if (number <= 1) hide(document.getElementById("reset")); else show(document.getElementById("reset"))
 }
 
 
@@ -161,10 +169,22 @@ function openLanguagePicker() {
 }
 
 
-// Open the copy menu
+// Open the theme menu
 function openThemePicker() {
     show(document.getElementById("themePicker"))
     show(document.querySelector(".popupBackground"))
+}
+
+
+// Open the copy menu
+function copy(deadend) {
+    document.getElementById("resultCopier").classList.remove("hidden")
+    document.querySelector(".popupBackground").classList.remove("hidden")
+    let e = document.getElementById("textToCopy")
+    e.value = document.location.href
+    if (deadend) e.value += ` (result: ${deadend})`
+    e.select()
+    document.execCommand('copy')
 }
 
 
@@ -174,12 +194,6 @@ function information() {
     show(document.querySelector(".popupBackground"))
 }
 
-
-// Open the theme menu
-function information() {
-    show(document.getElementById("information"))
-    show(document.querySelector(".popupBackground"))
-}
 
 // Select a language and reload
 function selectLanguage(language) {
@@ -243,7 +257,7 @@ function dark() {
     s.setProperty("--txtBlur", "#BEBEBE")
     s.setProperty("--bk", "#2B2B2B")
     s.setProperty("--bk2", "#303030")
-    s.setProperty("--bkTransparent", "#2b2b2bc2")
+    s.setProperty("--bkTransparent", "#2B2B2BDC")
     s.setProperty("--accent", "#899FEE")
     s.setProperty("--accentBlur", "#9DA8CE")
     s.setProperty("--accentHover", "#BEC7E9")
@@ -258,7 +272,7 @@ function light() {
     s.setProperty("--txtBlur", "#585858")
     s.setProperty("--bk", "#F7F7F7")
     s.setProperty("--bk2", "#FFFFFF")
-    s.setProperty("--bkTransparent", "#F7F7F7C2")
+    s.setProperty("--bkTransparent", "#F7F7F7DC")
     s.setProperty("--accent", "#7289DA")
     s.setProperty("--accentBlur", "#818DB8")
     s.setProperty("--accentHover", "#A5B2DD")
@@ -274,7 +288,8 @@ function correctTheme() {
     if (themeCookie) themeCookie = themeCookie.split(";")[0]
     if (themeCookie === "dark") dark()
     if (themeCookie === "light") light()
-    if (themeCookie === "auto") {
+    if (themeCookie === "auto" || !themeCookie) {
+        document.cookie = "theme=auto"
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) dark()
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) light()
     }
@@ -285,14 +300,11 @@ function correctTheme() {
 function correctSectionMargins() {
     let first = document.querySelector("section:first-of-type"), last = document.querySelector("section:last-of-type")
     first.style.marginTop = `calc(50vh - ${first.clientHeight / 2}px)`
-    last.style.marginBottom = `calc(50vh - ${last.clientHeight / 2}px)`
+    last.style.marginBottom = `calc(50vh - ${last.clientHeight / 2 + 5}px)`
+    if (last.classList.contains("blur")) last.style.marginBottom = `calc(50vh - ${last.clientHeight + 65}px)`
     document.querySelectorAll("section").forEach(e => {
-        if (e != first) {
-            e.style.marginTop = ""
-        }
-        if (e != last) {
-            e.style.marginBottom = ""
-        }
+        if (e != first) e.style.marginTop = ""
+        if (e != last) e.style.marginBottom = ""
     })
-    setTimeout(() => document.querySelector("section:not(.blur)").scrollIntoView({ block: "center", behavior: "smooth" }), 250)
+    document.querySelector("section:not(.blur)").scrollIntoView({ block: "center", behavior: "smooth" })
 }
