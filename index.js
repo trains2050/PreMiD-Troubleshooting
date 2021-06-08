@@ -21,9 +21,12 @@ function fetchStrings(tries) {
         languageCode = languageCode.split("-")[0]
         document.cookie = `language=${languageCode.split("-")[0]}`
     }
-    if (tries > 1) languageCode, document.cookie = "en"
+    if (tries > 1) {
+        languageCode = "en"
+        document.cookie = `language=en`
+    }
     if (tries > 2) return main.innerHTML = `<section class="deadend startstate"><p>Couldn't fetch language.</p></section><section class="deadend blur startstate"><p>Please let me know on Discord (QkeleQ10#8482).</p></section>`
-    console.log(languageCode)
+    console.log(languageCode, tries)
 
     // Start fetching
     fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${languageCode || "en"}.json`)
