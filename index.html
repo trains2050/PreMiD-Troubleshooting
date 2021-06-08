@@ -7,9 +7,10 @@
 
     <title>PreMiD Troubleshooting</title>
 
-    <link rel="icon" href="https://premid.app/assets/meta/favicon.ico">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="logoCurrent.png">
+    <link rel="stylesheet" href="index.css">
     <script src="index.js" defer></script>
+    <script src="feather.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta data-n-head="ssr" data-hid="theme-color" name="theme-color" content="#7289DA">
@@ -29,30 +30,40 @@
 
 </head>
 
-<body>
+<body onresize="correctSectionMargins()">
 
     <header>
-        <h1 data-i18n="PreMiD Trouble&amp;shy;shooting">PreMiD Trouble&shy;shooting</h1>
-        <div class="tools">
-            <a id="previousQuestion" style="display: none;" onclick="previousQuestion()" class="i18n">Back</a>
-            <a id="reset" style="display: none;" onclick="window.location.href = window.location.href.split('?')[0]"
-                class="i18n">Restart</a>
-            <a id="language" onclick="openLanguagePicker()" class="i18n">Language</a>
+        <img id="mainSiteLogo" src="logoMain.svg" title="Portfolio site"
+            onclick="window.open('https:/\/qkeleq10.github.io')">
+        <img id="currentSiteLogo" src="logoCurrent.png" title="PreMiD Troubleshooting"
+            onclick="window.open('https:/\/qkeleq10.github.io/PreMiD-Troubleshooting')">
+        <div class="grid-columns">
+            <button id="reset" class="hidden i18n" onclick="reset()">Start over</button>
+            <button id="previousQuestion" class="hidden i18n" onclick="previousQuestion()">Previous</button>
+            <button id="themeButton" onclick="openThemePicker()" class="i18n">Theme</button>
+            <button id="langbutton" onclick="openLanguagePicker()">
+                <i data-feather="globe"></i><span class="i18n">Language</span>
+            </button>
         </div>
     </header>
 
-    <main id="main">Preparing troubleshooter... <br><br>Is this taking too long? Let me know on Discord (QkeleQ10#8482).
+    <main id="main">
+        <section class="deadend startstate">
+            <p>Loading troubleshooter...</p>
+        </section>
+        <section class="deadend blur startstate">
+            <p>If this is taking too long, let me know on Discord (QkeleQ10#8482).</p>
+        </section>
     </main>
 
-    <footer><a href="https://qkeleq10.github.io/PreMiD-Troubleshooting/beta.html">Try out a the new design! (beta)</a><br>© 2021 QkeleQ10 · <a onclick="information()" class="i18n">Information</a></footer>
+    <footer>© 2021 QkeleQ10 · <a onclick="information()" class="i18n">Information</a></footer>
 
     <!-- Popups -->
-    <div class="popupBackground hidden"
-        onclick="this.classList.add('hidden'); document.querySelectorAll('.popup').forEach(e=>e.classList.add('hidden'))">
+    <div class="popupBackground hidden" onclick="hide(this); document.querySelectorAll('.popup').forEach(e=>hide(e))">
     </div>
     <div id="languagePicker" class="popup hidden">
         <h2 class="i18n">Select a language</h2>
-        <div id="languageList"></div>
+        <div id="languageList" class="grid"></div>
     </div>
     <div id="resultCopier" class="popup hidden">
         <h2 class="i18n">Copied the result</h2>
@@ -65,10 +76,22 @@
         <p data-i18n="infoDesc">This tool was built for the PreMiD community by QkeleQ10#8482.<br>It is acknowledged by
             but not owned by or affiliated with PreMiD.</p>
         <br>
-        <a href="https://qkeleq10.github.io" class="i18n">Contact and more</a> · <a href="https://premid.app"
-            class="i18n">PreMiD website</a> · <a href="https://discord.premid.app" class="i18n">PreMiD Discord
-            server</a>
+        <p><a href="https://qkeleq10.github.io" class="i18n">Contact and more</a> · <a href="https://premid.app"
+                class="i18n">PreMiD website</a>
+            · <a href="https://discord.premid.app" class="i18n">PreMiD Discord server</a> · <a href="https://qkeleq10.github.io/PreMiD-Troubleshooting">Old version</a></p>
     </div>
+    <div id="themePicker" class="popup hidden">
+        <h2 class="i18n">Select a theme</h2>
+        <div class="grid">
+            <button class="i18n" id="themeAuto" onclick="document.cookie = `theme=auto`; correctTheme()">Automatic</button>
+            <button class="i18n" id="themeLight" onclick="document.cookie = `theme=light`; correctTheme()">Light</button>
+            <button class="i18n" id="themeDark" onclick="document.cookie = `theme=dark`; correctTheme()">Dark</button>
+        </div>
+    </div>
+
+    <script>
+        feather.replace()
+    </script>
 
 </body>
 

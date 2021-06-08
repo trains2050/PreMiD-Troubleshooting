@@ -10,21 +10,9 @@
     --accentHover: #bec7e9;
     --button: #3F3F3F60;
     --shadow: #05050560;
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        --txt: #363636;
-        --txtBlur: #585858;
-        --bk: #F7F7F7;
-        --bkTransparent: #F7F7F7dc;
-        --bk2: #FFFFFF;
-        --accent: #7289da;
-        --accentBlur: #818DB8;
-        --accentHover: #a5b2dd;
-        --button: #D8D8D860;
-        --shadow: #AAAAAA60;
-    }
+    --txtSizePrimary: xx-large;
+    --txtSizeSecondary: x-large;
+    --txtSizeTertiary: larger;
 }
 
 * {
@@ -82,9 +70,8 @@ section {
 }
 
 section>p {
-    font-size: 40px;
+    font-size: var(--txtSizePrimary);
     color: var(--txt);
-    transition: font-size 0.25s;
 }
 
 section>.buttons {
@@ -94,20 +81,19 @@ section>.buttons {
 }
 
 section>.buttons>a {
-    font-size: 30px;
+    font-size: var(--txtSizeSecondary);
     cursor: pointer;
-    transition: font-size 0.25s, color 0.25s;
+    transition: color 0.25s;
 }
 
 section.blur>p {
-    font-size: 30px;
+    font-size: var(--txtSizeSecondary);
     color: var(--txtBlur);
 }
 
 section>b {
-    font-size: 22.5px;
+    font-size: var(--txtSizeTertiary);
     color: var(--accentBlur);
-    transition: font-size 0.25s;
 }
 
 section.deadend>p {
@@ -116,7 +102,6 @@ section.deadend>p {
 
 section.startstate:not(.blur) {
     margin-top: calc(50vh - 42px);
-    transition: none;
 }
 
 section.startstate>p {
@@ -130,6 +115,7 @@ button {
     align-items: center;
     gap: 10px;
     min-height: 44px;
+    min-width: max-content;
     border: none;
     background: var(--button);
     color: var(--accent);
@@ -155,11 +141,6 @@ button:focus:not(:disabled) {
 button:disabled {
     color: var(--shadow);
     cursor: default;
-}
-
-#siteLogos {
-    padding: 0 20px;
-    display: flex;
 }
 
 #mainSiteLogo {
@@ -191,6 +172,7 @@ button:disabled {
     display: grid;
     grid-auto-flow: column;
     gap: 10px;
+    overflow: auto;
 }
 
 a {
@@ -254,4 +236,19 @@ input:hover, input:focus {
 
 .hiding {
     opacity: 0;
+}
+
+@media (max-width: 470px) {
+    #currentSiteLogo, #langbutton>span {
+        display: none;
+    }
+    section {
+        margin: 20px 0 10px;
+        padding: 10px 20px;
+    }
+    :root {
+        --txtSizePrimary: x-large;
+        --txtSizeSecondary: larger;
+        --txtSizeTertiary: large;
+    }
 }

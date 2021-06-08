@@ -1,12 +1,15 @@
 let url = new URL(document.location)
 let params = url.searchParams
 let main = document.getElementById("main")
-let questions, strings, languageCode, number, availableLanguages
+let questions, strings, languageCode, number, availableLanguages, showTimer, hideTimer
 
 // Set language
 let languageCookie = document.cookie.split("language=")[1]
 if (languageCookie) languageCookie = languageCookie.split(";")[0]
 languageCode = languageCookie || window.navigator.language
+
+correctSectionMargins()
+correctTheme()
 
 
 // Fetch strings
@@ -15,11 +18,7 @@ fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${
     .then((data) => {
 
         strings = data
-        if (!strings) {
-            document.cookie = "language=en"
-            main.innerHTML = "Language not available. Hang on..."
-            setTimeout(() => window.location.reload(), 1000)
-        }
+        if (!strings) throw "error"
         document.documentElement.lang = languageCode
         document.querySelectorAll("*[data-i18n]").forEach(e => e.innerHTML = strings[e.dataset.i18n] || e.innerHTML)
         document.querySelectorAll(".i18n").forEach(e => e.innerHTML = strings[e.innerHTML] || e.innerHTML)
@@ -41,8 +40,9 @@ fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${
     })
     .catch(e => {
         document.cookie = "language=en"
-        main.innerHTML = "Language not available. Hang on..."
-        setTimeout(() => window.location.reload(), 1000)
+        main.innerHTML = `<section class="deadend startstate"><p>Language not available. Switching to English...</p></section><section class="deadend blur startstate"><p>If this is taking too long, let me know on Discord (QkeleQ10#8482).</p></section>`
+        correctSectionMargins()
+        setTimeout(() => window.location.reload(), 2000)
         console.info("Error:")
         console.error(e)
     })
@@ -50,17 +50,14 @@ fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${
 
 
 // Ask a question
-function askQuestion() {
+function askQuestion(immediately) {
     let question = questions[number]
 
-    // Add spacing and append question
-    if (number == 0) main.innerHTML += `${strings.premidts[question[0]]}<br>`
-    else main.innerHTML += `<br>${strings.premidts[question[0]]}<br>`
+    // Append question
+    main.innerHTML += `<section><p>${strings.premidts[question[0]]}</p><div class="buttons"></div></section>`
 
     // Append buttons
-    let buttons = document.createElement("div")
-    buttons.classList.add("buttons")
-    main.appendChild(buttons)
+    let buttons = document.querySelector("div.buttons")
     question[1].forEach((action, index, array) => {
         if (action.deadend) {
             buttons.innerHTML += `<a id="action${index}" onclick="deadend('${action.deadend}', ${index}, this)">${strings.premidts[action.text]}</a>`
@@ -72,50 +69,64 @@ function askQuestion() {
     })
 
     // Scroll down and continue if needed
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        left: 0,
-        behavior: 'smooth'
-    })
     if (params.has(number)) document.getElementById(`action${params.get(number)}`).click()
+
+    // Correct section margins
+    correctSectionMargins(immediately)
+
+    // Show correct buttons
+    if (number <= 0) hide(document.getElementById("previousQuestion")); else show(document.getElementById("previousQuestion"))
+    if (number <= 1) hide(document.getElementById("reset")); else show(document.getElementById("reset"))
 }
 
 
 // Send a deadend response
 function deadend(deadend, index, element) {
 
-    // Stylise main and append deadend
-    if (element?.parentElement) element.parentElement.innerHTML = `> ${element.innerHTML}`
-    main.innerHTML = main.innerHTML.replace("<b>", "").replace("</b>", "")
-    main.innerHTML = `<b>${main.innerHTML}</b><br>${strings.premidts[deadend]}<br><br>${(strings.copyTease || "<a onclick='copy(%deadend%)'>Copy result</a>").replace("%deadend%", `"${deadend}"`)}`
+    // Unfocus
+    if (deadend !== "noDiagnosis") {
+        element.parentElement.parentElement.classList.add("blur")
+        element.parentElement.outerHTML = `<!--${element.parentElement.outerHTML}--><b>${element.innerHTML}</b>`
+    }
+
+    // Append deadend
+    main.innerHTML += `<section class="deadend"><p>${strings.premidts[deadend]}</p></section><section class="deadend blur"><p>${(strings.copyTease || "<a onclick='copy(%deadend%)'>Copy result</a>").replace("%deadend%", `"${deadend}"`)}</p></section>`
 
     // Add to searchParams
-    if (!params.has(number)) params.append(number, index)
-    window.history.pushState({}, "", url)
-    document.getElementById("reset").style.display = "unset"
-    if (number >= 1) document.getElementById("previousQuestion").style.display = "unset"
+    if (deadend !== "noDiagnosis") {
+        if (!params.has(number)) params.append(number, index)
+        window.history.pushState({}, "", url)
+    }
+
+    // Correct section margins
+    correctSectionMargins()
+
+    // Show correct buttons
+    if (document.getElementById("previousQuestion").classList.contains("hidden")) show(document.getElementById("previousQuestion"))
+    if (document.getElementById("reset").classList.contains("hidden") && number >= 1) show(document.getElementById("reset"))
 }
 
 
 // Send a followup response
 function followup(followup, index, element) {
 
-    // Stylise main
-    element.parentElement.innerHTML = `> ${element.innerHTML}`
-    main.innerHTML = main.innerHTML.replace("<b>", "").replace("</b>", "")
-    main.innerHTML = `<b>${main.innerHTML}</b>`
+    // Unfocus
+    element.parentElement.parentElement.classList.add("blur")
+    element.parentElement.outerHTML = `<!--${element.parentElement.outerHTML}--><b>${element.innerHTML}</b>`
 
     // Add to searchParams
     if (!params.has(number)) params.append(number, index)
     window.history.pushState({}, "", url)
-    document.getElementById("reset").style.display = "unset"
-    if (number >= 1) document.getElementById("previousQuestion").style.display = "unset"
 
     // Start next question
     if (typeof followup === "number") number = followup || number + 1
     else number++
     if (questions[number]) askQuestion()
     else deadend("noDiagnosis", index, element)
+
+    // Show correct buttons
+    if (number <= 0) hide(document.getElementById("previousQuestion")); else show(document.getElementById("previousQuestion"))
+    if (number <= 1) hide(document.getElementById("reset")); else show(document.getElementById("reset"))
 }
 
 
@@ -135,26 +146,39 @@ function openLanguagePicker() {
                     })
 
                     let p = document.getElementById("languagePicker")
-                    p.classList.remove("hidden")
-                    document.querySelector(".popupBackground").classList.remove("hidden")
+                    show(p)
+                    show(document.querySelector(".popupBackground"))
                     document.getElementById("languageList").innerHTML = ""
 
-                    languages.forEach((language) => {
-                        let a = document.createElement("a")
-                        a.id = language[0]
-                        if (languageCode === language[0]) a.setAttribute("disabled", true)
-                        a.innerHTML = language[1]
-                        a.setAttribute("onclick", "selectLanguage(this.id)")
-                        document.getElementById("languageList").appendChild(a)
+                    languages.forEach((l) => {
+                        let b = document.createElement("button")
+                        b.id = l[0]
+                        if (languageCode === l[0]) b.setAttribute("disabled", true)
+                        b.innerHTML = l[1]
+                        b.setAttribute("onclick", "selectLanguage(this.id)")
+                        document.getElementById("languageList").appendChild(b)
                     })
                 })
-                .catch(() => {
-                    console.log("Loading languages: Failed.")
+                .catch((e) => {
+                    console.log(e)
                 })
         })
         .catch(() => {
             console.log("Loading languages: Failed.")
         })
+}
+
+
+// Open the theme menu
+function openThemePicker() {
+    show(document.getElementById("themePicker"))
+    show(document.querySelector(".popupBackground"))
+    let themeCookie = document.cookie.split("theme=")[1]
+    themecookie = themeCookie ? themeCookie.split(";")[0] : "auto"
+
+    document.getElementById("themeAuto").disabled = (themeCookie === "auto")
+    document.getElementById("themeDark").disabled = (themeCookie === "dark")
+    document.getElementById("themeLight").disabled = (themeCookie === "light")
 }
 
 
@@ -172,8 +196,8 @@ function copy(deadend) {
 
 // Open the information menu
 function information() {
-    document.getElementById("information").classList.remove("hidden")
-    document.querySelector(".popupBackground").classList.remove("hidden")
+    show(document.getElementById("information"))
+    show(document.querySelector(".popupBackground"))
 }
 
 
@@ -190,5 +214,103 @@ function previousQuestion() {
     for (const [key] of params) ps.push(key)
     params.delete(ps[ps.length - 1])
     window.history.pushState({}, "", url)
-    window.location.reload()
+    main.innerHTML = ""
+    number = 0
+    askQuestion(true)
+}
+
+// Restart everything
+function reset() {
+    let ps = []
+    for (const [key] of params) ps.push(key)
+    ps.forEach(p => params.delete(p))
+    window.history.pushState({}, "", url)
+    main.innerHTML = ""
+    number = 0
+    askQuestion(true)
+}
+
+
+// Show an element
+function show(element) {
+    if (!element.classList.contains("hidden") && !element.classList.contains("hiding")) return
+    if (element.classList.contains("hiding")) element.classList.remove("hiding")
+    clearTimeout(hideTimer)
+    element.classList.add("hiding")
+    element.classList.remove("hidden")
+    showTimer = setTimeout(() => {
+        element.classList.remove("hiding")
+    }, 250)
+}
+
+
+// Hide an element
+function hide(element) {
+    if (element.classList.contains("hidden")) return
+    if (element.classList.contains("hiding")) element.classList.remove("hiding")
+    clearTimeout(showTimer)
+    element.classList.add("hiding")
+    hideTimer = setTimeout(() => {
+        element.classList.add("hidden")
+        element.classList.remove("hiding")
+    }, 250)
+}
+
+// Make theme dark
+function dark() {
+    let s = document.documentElement.style
+    s.setProperty("--txt", "#EEEEEE")
+    s.setProperty("--txtBlur", "#BEBEBE")
+    s.setProperty("--bk", "#2B2B2B")
+    s.setProperty("--bk2", "#303030")
+    s.setProperty("--bkTransparent", "#2B2B2BDC")
+    s.setProperty("--accent", "#899FEE")
+    s.setProperty("--accentBlur", "#9DA8CE")
+    s.setProperty("--accentHover", "#BEC7E9")
+    s.setProperty("--button", "#3F3F3F60")
+    s.setProperty("--shadow", "#05050560")
+}
+
+// Make theme light
+function light() {
+    let s = document.documentElement.style
+    s.setProperty("--txt", "#363636")
+    s.setProperty("--txtBlur", "#585858")
+    s.setProperty("--bk", "#F7F7F7")
+    s.setProperty("--bk2", "#FFFFFF")
+    s.setProperty("--bkTransparent", "#F7F7F7DC")
+    s.setProperty("--accent", "#7289DA")
+    s.setProperty("--accentBlur", "#818DB8")
+    s.setProperty("--accentHover", "#A5B2DD")
+    s.setProperty("--button", "#D8D8D860")
+    s.setProperty("--shadow", "#AAAAAA60")
+}
+
+// Set the right theme
+function correctTheme() {
+    hide(document.querySelector(".popupBackground"))
+    document.querySelectorAll(".popup").forEach(e => hide(e))
+    let themeCookie = document.cookie.split("theme=")[1]
+    if (themeCookie) themeCookie = themeCookie.split(";")[0]
+    if (themeCookie === "dark") dark()
+    if (themeCookie === "light") light()
+    if (themeCookie === "auto" || !themeCookie) {
+        document.cookie = "theme=auto"
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) dark()
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) light()
+    }
+}
+
+
+// Set the right margins
+function correctSectionMargins(immediately) {
+    let first = document.querySelector("section:first-of-type"), last = document.querySelector("section:last-of-type")
+    first.style.marginTop = `calc(50vh - ${first.clientHeight / 2}px)`
+    last.style.marginBottom = `calc(50vh - ${last.clientHeight / 2 + 5}px)`
+    if (last.classList.contains("blur")) last.style.marginBottom = `calc(50vh - ${last.clientHeight + 65}px)`
+    document.querySelectorAll("section").forEach(e => {
+        if (e != first) e.style.marginTop = ""
+        if (e != last) e.style.marginBottom = ""
+    })
+    document.querySelector("section:not(.blur)").scrollIntoView({ block: "center", behavior: immediately ? "smooth" : "auto" })
 }
