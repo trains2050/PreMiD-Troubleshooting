@@ -10,43 +10,56 @@ languageCode = languageCookie || window.navigator.language
 
 correctSectionMargins()
 correctTheme()
+fetchStrings(0)
 
 
 // Fetch strings
-fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${languageCode || "en"}.json`)
-    .then((response) => response.json())
-    .then((data) => {
+function fetchStrings(tries) {
 
-        strings = data
-        if (!strings) throw "error"
-        document.documentElement.lang = languageCode
-        document.querySelectorAll("*[data-i18n]").forEach(e => e.innerHTML = strings[e.dataset.i18n] || e.innerHTML)
-        document.querySelectorAll(".i18n").forEach(e => e.innerHTML = strings[e.innerHTML] || e.innerHTML)
+    // When trying again
+    if (tries > 0) {
+        languageCode = languageCode.split("-")[0]
+        document.cookie = `language=${languageCode.split("-")[0]}`
+    }
+    if (tries > 1) languageCode, document.cookie = "en"
+    if (tries > 2) return main.innerHTML = `<section class="deadend startstate"><p>Couldn't fetch language.</p></section><section class="deadend blur startstate"><p>Please let me know on Discord (QkeleQ10#8482).</p></section>`
+    console.log(languageCode)
+
+    // Start fetching
+    fetch(`https://raw.githubusercontent.com/QkeleQ10/Localisation/master/strings/${languageCode || "en"}.json`)
+        .then((response) => response.json())
+        .then((data) => {
+
+            // Use results
+            strings = data
+            if (!strings) throw "error"
+            document.documentElement.lang = languageCode
+            document.querySelectorAll("*[data-i18n]").forEach(e => e.innerHTML = strings[e.dataset.i18n] || e.innerHTML)
+            document.querySelectorAll(".i18n").forEach(e => e.innerHTML = strings[e.innerHTML] || e.innerHTML)
 
 
-        // Fetch questions
-        fetch(`steps.json`)
-            .then((response) => response.json())
-            .then((data) => {
-                questions = data
-                main.innerHTML = ""
-                number = 0
-                askQuestion()
-            })
-            .catch(e => {
-                console.error(e)
-            })
+            // Fetch questions
+            fetch(`steps.json`)
+                .then((response) => response.json())
+                .then((data) => {
+                    questions = data
+                    main.innerHTML = ""
+                    number = 0
+                    askQuestion()
+                })
+                .catch(e => {
+                    console.error(e)
+                })
 
-    })
-    .catch(e => {
-        document.cookie = "language=en"
-        main.innerHTML = `<section class="deadend startstate"><p>Language not available. Switching to English...</p></section><section class="deadend blur startstate"><p>If this is taking too long, let me know on Discord (QkeleQ10#8482).</p></section>`
-        correctSectionMargins()
-        setTimeout(() => window.location.reload(), 2000)
-        console.info("Error:")
-        console.error(e)
-    })
+        })
 
+        // Try again
+        .catch(e => {
+            main.innerHTML = `<section class="deadend startstate"><p>Fetching language...</p></section><section class="deadend blur startstate"><p>If this is taking too long, let me know on Discord (QkeleQ10#8482).</p></section>`
+            correctSectionMargins()
+            setTimeout(() => fetchStrings(tries + 1), 250)
+        })
+}
 
 
 // Ask a question
