@@ -7,7 +7,11 @@ let questions, strings, languageCode, number, availableLanguages, showTimer, hid
 let languageCookie = document.cookie.split("language=")[1]
 if (languageCookie) languageCookie = languageCookie.split(";")[0]
 languageCode = languageCookie || window.navigator.language
-
+window.addEventListener("load", () => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+  });
 correctSectionMargins()
 correctTheme()
 fetchStrings(0)
